@@ -10,6 +10,7 @@ export function OpportunityMatrix() {
         { name: "Zero-Shot Prompting", path: "/methodes/zero-shot" },
         { name: "One-Shot Prompting", path: "/methodes/one-shot" },
       ],
+      color: "bg-green-50",
     },
     topRight: {
       title: "Tâches simples pour experts",
@@ -19,6 +20,7 @@ export function OpportunityMatrix() {
         { name: "Few-Shot Prompting", path: "/methodes/few-shot" },
         { name: "Expert Role-Playing", path: "/methodes/expert-role-playing" },
       ],
+      color: "bg-blue-50",
     },
     bottomLeft: {
       title: "Tâches complexes pour débutants",
@@ -28,6 +30,7 @@ export function OpportunityMatrix() {
         { name: "Chain-of-Thought", path: "/methodes/chain-of-thought" },
         { name: "Least-to-Most Prompting", path: "/methodes/least-to-most" },
       ],
+      color: "bg-yellow-50",
     },
     bottomRight: {
       title: "Tâches complexes pour experts",
@@ -38,6 +41,7 @@ export function OpportunityMatrix() {
         { name: "Iterative Prompting", path: "/methodes/iterative-prompting" },
         { name: "Multi-Prompting", path: "/methodes/multi-prompting" },
       ],
+      color: "bg-purple-50",
     },
   }
 

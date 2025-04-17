@@ -9,6 +9,7 @@ export function SimpleMatrix() {
         { name: "Zero-Shot Prompting", path: "/methodes/zero-shot" },
         { name: "Expert Role-Playing", path: "/methodes/expert-role-playing" },
       ],
+      color: "bg-indigo-50",
     },
     topRight: {
       title: "Analyse et raisonnement",
@@ -18,6 +19,7 @@ export function SimpleMatrix() {
         { name: "Chain-of-Thought", path: "/methodes/chain-of-thought" },
         { name: "Least-to-Most Prompting", path: "/methodes/least-to-most" },
       ],
+      color: "bg-teal-50",
     },
     bottomLeft: {
       title: "Transformation et adaptation",
@@ -27,6 +29,7 @@ export function SimpleMatrix() {
         { name: "One-Shot Prompting", path: "/methodes/one-shot" },
         { name: "Few-Shot Prompting", path: "/methodes/few-shot" },
       ],
+      color: "bg-amber-50",
     },
     bottomRight: {
       title: "Tâches spécialisées",
@@ -36,6 +39,7 @@ export function SimpleMatrix() {
         { name: "Contextual Augmentation", path: "/methodes/contextual-augmentation" },
         { name: "Multi-Prompting", path: "/methodes/multi-prompting" },
       ],
+      color: "bg-rose-50",
     },
   }
 

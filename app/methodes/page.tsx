@@ -11,6 +11,8 @@ import { OpportunityMatrix } from "@/components/opportunity-matrix"
 import { SimpleMatrix } from "@/components/simple-matrix"
 import { PDFDownloadButton } from "@/components/pdf-download-button"
 import { promptingMethods } from "@/data/prompting-methods"
+import { InteractiveDecisionTree } from "@/components/interactive-decision-tree"
+import DecisionTree from "@/components/decision-tree"
 
 export default function MethodesPage() {
   const [activeTab, setActiveTab] = useState("techniques")
@@ -31,8 +33,9 @@ export default function MethodesPage() {
       </div>
 
       <Tabs defaultValue="techniques" className="w-full" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3 mb-8">
+        <TabsList className="grid w-full grid-cols-4 mb-8">
           <TabsTrigger value="techniques">Techniques</TabsTrigger>
+          <TabsTrigger value="decision-tree">Arbre de décision</TabsTrigger>
           <TabsTrigger value="matrices">Matrices</TabsTrigger>
           <TabsTrigger value="exemples">Exemples concrets</TabsTrigger>
         </TabsList>
@@ -81,6 +84,23 @@ export default function MethodesPage() {
                 </Card>
               </Link>
             ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="decision-tree" className="space-y-8">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold mb-4">Arbre de décision interactif</h2>
+            <p className="text-gray-600 mb-6">
+              Répondez à quelques questions simples pour identifier la technique de prompting la plus adaptée à votre
+              besoin.
+            </p>
+            <InteractiveDecisionTree />
+          </div>
+
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-4">Arbre de décision visuel</h2>
+            <p className="text-gray-600 mb-6">Visualisez l'ensemble des techniques et leur processus de sélection.</p>
+            <DecisionTree />
           </div>
         </TabsContent>
 

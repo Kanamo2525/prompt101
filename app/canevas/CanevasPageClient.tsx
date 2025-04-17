@@ -237,6 +237,25 @@ const recommendedIngredients: Record<PromptTechnique, string[]> = {
   "": [],
 }
 
+// Plus icon component
+const Plus = ({ size, className }: { size: number; className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <line x1="12" y1="5" x2="12" y2="19"></line>
+    <line x1="5" y1="12" x2="19" y2="12"></line>
+  </svg>
+)
+
 // Main component
 export default function CanevasPageClient() {
   // States
@@ -376,7 +395,7 @@ export default function CanevasPageClient() {
                   placeholder="Décrivez le point de friction que vous souhaitez résoudre avec l'IA..."
                   value={frictionPoint}
                   onChange={(e) => setFrictionPoint(e.target.value)}
-                ></textarea>
+                />
               </div>
 
               <h3 className="text-md font-semibold text-gray-700 mb-2">Type (Matrice d'opportunités)</h3>
@@ -474,7 +493,7 @@ export default function CanevasPageClient() {
                       placeholder="Justifiez votre choix de technique..."
                       value={justification}
                       onChange={(e) => setJustification(e.target.value)}
-                    ></textarea>
+                    />
                   </div>
                 </div>
               ) : (
@@ -553,7 +572,7 @@ export default function CanevasPageClient() {
                         placeholder={ingredient.description}
                         value={ingredient.content}
                         onChange={(e) => updateIngredientContent(ingredient.id, e.target.value)}
-                      ></textarea>
+                      />
                     </div>
                   ))}
               </div>
@@ -606,7 +625,7 @@ export default function CanevasPageClient() {
                 placeholder="Vous pouvez modifier ou affiner manuellement votre prompt ici..."
                 value={draftPrompt}
                 onChange={(e) => setDraftPrompt(e.target.value)}
-              ></textarea>
+              />
 
               <div className="mt-6 flex items-center justify-between">
                 <Button variant="outline" asChild>
@@ -692,22 +711,3 @@ export default function CanevasPageClient() {
     </div>
   )
 }
-
-// Plus icon component
-const Plus = ({ size, className }: { size: number; className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <line x1="12" y1="5" x2="12" y2="19"></line>
-    <line x1="5" y1="12" x2="19" y2="12"></line>
-  </svg>
-)
