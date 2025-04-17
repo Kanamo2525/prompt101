@@ -1,159 +1,210 @@
-"use client"
-
-import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, BookOpen, Code, FileText, Lightbulb, Sparkles } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OpportunityMatrix } from "@/components/opportunity-matrix"
 import { SimpleMatrix } from "@/components/simple-matrix"
-import { PDFDownloadButton } from "@/components/pdf-download-button"
-import { promptingMethods } from "@/data/prompting-methods"
 import { InteractiveDecisionTree } from "@/components/interactive-decision-tree"
-import DecisionTree from "@/components/decision-tree"
 
 export default function MethodesPage() {
-  const [activeTab, setActiveTab] = useState("techniques")
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Méthodes de Prompting</h1>
-          <p className="text-gray-600 max-w-2xl">
-            Découvrez les différentes techniques pour formuler vos prompts et obtenir les meilleurs résultats avec les
-            modèles d'IA générative.
+    <div className="min-h-screen bg-gray-50">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <h1 className="text-3xl font-bold">Méthodes de Prompting</h1>
+          <p className="mt-2 text-xl">
+            Découvrez les différentes techniques pour formuler des prompts efficaces avec l'IA générative
           </p>
-        </div>
-        <div className="mt-4 md:mt-0">
-          <PDFDownloadButton />
         </div>
       </div>
 
-      <Tabs defaultValue="techniques" className="w-full" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4 mb-8">
-          <TabsTrigger value="techniques">Techniques</TabsTrigger>
-          <TabsTrigger value="decision-tree">Arbre de décision</TabsTrigger>
-          <TabsTrigger value="matrices">Matrices</TabsTrigger>
-          <TabsTrigger value="exemples">Exemples concrets</TabsTrigger>
-        </TabsList>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Vue d'ensemble</TabsTrigger>
+            <TabsTrigger value="decision-tree">Arbre de décision</TabsTrigger>
+            <TabsTrigger value="matrices">Matrices</TabsTrigger>
+            <TabsTrigger value="examples">Exemples concrets</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="techniques" className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {promptingMethods.map((method) => (
-              <Link key={method.id} href={`/methodes/${method.id}`} className="block h-full">
-                <Card className="h-full flex flex-col hover:shadow-md transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div
-                        className={`p-2 rounded-lg ${
-                          method.difficulty === "Facile"
-                            ? "bg-green-100"
-                            : method.difficulty === "Modéré"
-                              ? "bg-yellow-100"
-                              : "bg-orange-100"
-                        }`}
-                      >
-                        {method.icon}
-                      </div>
-                      <div
-                        className={`text-xs font-medium px-2 py-1 rounded-full ${
-                          method.difficulty === "Facile"
-                            ? "bg-green-100 text-green-800"
-                            : method.difficulty === "Modéré"
-                              ? "bg-yellow-100 text-yellow-800"
-                              : "bg-orange-100 text-orange-800"
-                        }`}
-                      >
-                        {method.difficulty}
-                      </div>
-                    </div>
-                    <CardTitle className="mt-2">{method.title}</CardTitle>
-                    <CardDescription>{method.shortDescription}</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex-grow">
-                    <p className="text-sm text-gray-600">{method.description}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <Button variant="ghost" size="sm" className="ml-auto">
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Zero-Shot Prompting</CardTitle>
+                  <CardDescription>Demander directement sans exemple</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette technique consiste à formuler une instruction claire sans fournir d'exemple. Elle est idéale
+                    pour des tâches simples et bien définies.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/zero-shot" className="ml-auto">
+                    <Button variant="ghost" size="sm">
                       En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
-                  </CardFooter>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </TabsContent>
+                  </Link>
+                </CardFooter>
+              </Card>
 
-        <TabsContent value="decision-tree" className="space-y-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold mb-4">Arbre de décision interactif</h2>
-            <p className="text-gray-600 mb-6">
-              Répondez à quelques questions simples pour identifier la technique de prompting la plus adaptée à votre
-              besoin.
-            </p>
-            <InteractiveDecisionTree />
-          </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>One-Shot Prompting</CardTitle>
+                  <CardDescription>Fournir un exemple unique</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette technique consiste à fournir un exemple pour guider le modèle dans sa réponse. Elle est utile
+                    lorsque vous souhaitez un format ou un style spécifique.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/one-shot" className="ml-auto">
+                    <Button variant="ghost" size="sm">
+                      En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
 
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-4">Arbre de décision visuel</h2>
-            <p className="text-gray-600 mb-6">Visualisez l'ensemble des techniques et leur processus de sélection.</p>
-            <DecisionTree />
-          </div>
-        </TabsContent>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Few-Shot Prompting</CardTitle>
+                  <CardDescription>Fournir plusieurs exemples</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette méthode consiste à donner plusieurs exemples pour aider le modèle à comprendre le format et le
+                    style de réponse attendus.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/few-shot" className="ml-auto">
+                    <Button variant="ghost" size="sm">
+                      En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
 
-        <TabsContent value="matrices">
-          <div className="space-y-12">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Matrice d'opportunité</h2>
-              <p className="text-gray-600 mb-6">
-                Cette matrice vous aide à identifier la technique de prompting la plus adaptée en fonction de la
-                complexité de votre tâche et de votre niveau d'expertise.
-              </p>
-              <OpportunityMatrix />
+              <Card>
+                <CardHeader>
+                  <CardTitle>Chain-of-Thought</CardTitle>
+                  <CardDescription>Raisonnement étape par étape</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette technique encourage le modèle à décomposer son raisonnement en étapes logiques, ce qui
+                    améliore la précision pour les problèmes complexes.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/chain-of-thought" className="ml-auto">
+                    <Button variant="ghost" size="sm">
+                      En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>RCT (Rôle, Contexte, Tâche)</CardTitle>
+                  <CardDescription>Structurer le prompt en trois parties</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette méthode consiste à définir clairement le rôle que doit jouer l'IA, le contexte de la demande,
+                    et la tâche spécifique à accomplir.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/rct" className="ml-auto">
+                    <Button variant="ghost" size="sm">
+                      En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Least-to-Most Prompting</CardTitle>
+                  <CardDescription>Décomposer un problème complexe</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-gray-600">
+                    Cette approche consiste à décomposer un problème complexe en sous-problèmes plus simples à résoudre
+                    séquentiellement.
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/methodes/least-to-most" className="ml-auto">
+                    <Button variant="ghost" size="sm">
+                      En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
             </div>
 
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Matrice de sélection simplifiée</h2>
-              <p className="text-gray-600 mb-6">
-                Une approche simplifiée pour choisir la technique de prompting en fonction de vos besoins.
+            <div className="mt-8 text-center">
+              <Link href="/canevas">
+                <Button>
+                  Créer votre propre prompt <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="decision-tree">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h2 className="text-2xl font-bold mb-6">Arbre de décision pour choisir une technique</h2>
+              <p className="mb-6 text-gray-600">
+                Utilisez cet arbre de décision interactif pour déterminer quelle technique de prompting est la plus
+                adaptée à votre besoin.
               </p>
+
+              <InteractiveDecisionTree />
+            </div>
+          </TabsContent>
+
+          <TabsContent value="matrices">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h2 className="text-2xl font-bold mb-6">Matrices de sélection</h2>
+              <p className="mb-6 text-gray-600">
+                Ces matrices vous aident à visualiser les différentes techniques de prompting selon leur complexité et
+                leur impact.
+              </p>
+
+              <OpportunityMatrix />
+
+              <div className="my-12 border-t border-gray-200"></div>
+
               <SimpleMatrix />
             </div>
-          </div>
-        </TabsContent>
+          </TabsContent>
 
-        <TabsContent value="exemples">
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Exemples de prompts par technique</h2>
-              <p className="text-gray-600 mb-6">
-                Découvrez des exemples concrets de prompts pour chaque technique et apprenez à les adapter à vos
-                besoins.
+          <TabsContent value="examples">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h2 className="text-2xl font-bold mb-6">Exemples concrets</h2>
+              <p className="mb-6 text-gray-600">
+                Découvrez des exemples concrets d'application des différentes techniques de prompting.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center space-x-2">
-                      <Lightbulb className="h-5 w-5 text-yellow-500" />
-                      <CardTitle className="text-lg">Zero-Shot Prompting</CardTitle>
-                    </div>
+                    <CardTitle>Zero-Shot Prompting</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
-                        <p className="text-sm font-medium text-gray-700">Exemple :</p>
-                        <p className="text-sm text-gray-600 mt-1">
-                          "Explique-moi le concept de l'apprentissage par renforcement comme si j'étais un étudiant en
-                          première année d'informatique."
-                        </p>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Cette technique ne nécessite pas d'exemples préalables et fonctionne bien pour des tâches
-                        simples.
+                    <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
+                      <p className="text-sm font-mono">
+                        Explique-moi le concept de l'apprentissage par renforcement en termes simples.
                       </p>
                     </div>
                   </CardContent>
@@ -161,25 +212,19 @@ export default function MethodesPage() {
 
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center space-x-2">
-                      <BookOpen className="h-5 w-5 text-blue-500" />
-                      <CardTitle className="text-lg">One-Shot Prompting</CardTitle>
-                    </div>
+                    <CardTitle>One-Shot Prompting</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
-                        <p className="text-sm font-medium text-gray-700">Exemple :</p>
-                        <p className="text-sm text-gray-600 mt-1">
-                          "Exemple: Question: Quelle est la capitale de la France? Réponse: La capitale de la France est
-                          Paris.
-                          <br />
-                          <br />
-                          Question: Quelle est la capitale du Japon? Réponse:"
-                        </p>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Fournit un exemple unique pour guider le modèle dans sa réponse.
+                    <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
+                      <p className="text-sm font-mono">
+                        Voici un exemple de résumé d'article: <br />
+                        Article: Les chercheurs ont découvert une nouvelle espèce de grenouille dans la forêt
+                        amazonienne. <br />
+                        Résumé: Découverte d'une nouvelle espèce de grenouille en Amazonie. <br />
+                        <br />
+                        Maintenant, résume cet article: <br />
+                        Article: Une étude récente montre que la méditation quotidienne peut réduire le stress et
+                        améliorer la concentration.
                       </p>
                     </div>
                   </CardContent>
@@ -187,22 +232,13 @@ export default function MethodesPage() {
 
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center space-x-2">
-                      <Code className="h-5 w-5 text-purple-500" />
-                      <CardTitle className="text-lg">Chain-of-Thought</CardTitle>
-                    </div>
+                    <CardTitle>Chain-of-Thought</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
-                        <p className="text-sm font-medium text-gray-700">Exemple :</p>
-                        <p className="text-sm text-gray-600 mt-1">
-                          "Jean a 5 pommes. Il en donne 2 à Marie et en achète 3 de plus. Combien de pommes Jean a-t-il
-                          maintenant? Réfléchis étape par étape."
-                        </p>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Encourage le modèle à décomposer son raisonnement en étapes logiques.
+                    <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
+                      <p className="text-sm font-mono">
+                        Résous ce problème étape par étape: <br />
+                        Si 5 pommes coûtent 2,50€, combien coûtent 8 pommes?
                       </p>
                     </div>
                   </CardContent>
@@ -210,83 +246,23 @@ export default function MethodesPage() {
 
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center space-x-2">
-                      <Sparkles className="h-5 w-5 text-amber-500" />
-                      <CardTitle className="text-lg">Few-Shot Prompting</CardTitle>
-                    </div>
+                    <CardTitle>RCT (Rôle, Contexte, Tâche)</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
-                        <p className="text-sm font-medium text-gray-700">Exemple :</p>
-                        <p className="text-sm text-gray-600 mt-1">
-                          "Classifie le sentiment: 'J'adore ce produit!' → Positif
-                          <br />
-                          'Ce service est terrible.' → Négatif
-                          <br />
-                          'Le film était correct.' → Neutre
-                          <br />
-                          'Cette expérience m'a déçu.' →"
-                        </p>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Fournit plusieurs exemples pour aider le modèle à comprendre la tâche.
+                    <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
+                      <p className="text-sm font-mono">
+                        Rôle: Tu es un expert en communication d'entreprise. <br />
+                        Contexte: Notre entreprise vient de lancer un nouveau produit écologique. <br />
+                        Tâche: Rédige un communiqué de presse de 3 paragraphes pour annoncer ce lancement.
                       </p>
                     </div>
                   </CardContent>
-                </Card>
-              </div>
-
-              <div className="mt-8 text-center">
-                <Link href="/canevas">
-                  <Button>
-                    Créer votre propre prompt <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Ressources supplémentaires</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Guide complet du prompting</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      Téléchargez notre guide complet pour maîtriser l'art du prompting avec les modèles d'IA
-                      générative.
-                    </p>
-                  </CardContent>
-                  <CardFooter>
-                    <PDFDownloadButton />
-                  </CardFooter>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Proposer un prompt</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">
-                      Vous avez créé un prompt efficace? Partagez-le avec la communauté et contribuez à enrichir notre
-                      base de connaissances.
-                    </p>
-                  </CardContent>
-                  <CardFooter>
-                    <Link href="/proposer">
-                      <Button variant="outline">
-                        Proposer un prompt <FileText className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardFooter>
                 </Card>
               </div>
             </div>
-          </div>
-        </TabsContent>
-      </Tabs>
+          </TabsContent>
+        </Tabs>
+      </div>
     </div>
   )
 }

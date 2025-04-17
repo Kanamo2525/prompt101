@@ -50,13 +50,15 @@ export const MatrixComponent = ({
       </div>
     )
 
-    return quadrant.link ? (
-      <Link href={quadrant.link} className="block h-full hover:bg-gray-50 transition-colors">
-        {content}
-      </Link>
-    ) : (
-      content
-    )
+    if (quadrant.link) {
+      return (
+        <Link href={quadrant.link} className="block h-full hover:bg-gray-50 transition-colors">
+          {content}
+        </Link>
+      )
+    }
+
+    return content
   }
 
   return (

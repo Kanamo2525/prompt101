@@ -1,33 +1,20 @@
 import { MatrixComponent } from "./matrix-component"
 
+interface MatrixQuadrantProps {
+  id: string
+  title: string
+  description: string
+  link?: string
+}
+
 interface OpportunityMatrixProps {
   title?: string
   xAxisLabel?: string
   yAxisLabel?: string
-  topLeft?: {
-    id: string
-    title: string
-    description: string
-    link?: string
-  }
-  topRight?: {
-    id: string
-    title: string
-    description: string
-    link?: string
-  }
-  bottomLeft?: {
-    id: string
-    title: string
-    description: string
-    link?: string
-  }
-  bottomRight?: {
-    id: string
-    title: string
-    description: string
-    link?: string
-  }
+  topLeft?: MatrixQuadrantProps
+  topRight?: MatrixQuadrantProps
+  bottomLeft?: MatrixQuadrantProps
+  bottomRight?: MatrixQuadrantProps
 }
 
 export const OpportunityMatrix = ({
