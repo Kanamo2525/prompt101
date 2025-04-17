@@ -1,5 +1,16 @@
 import type React from "react"
-import { BookOpen, Code, FileText, Lightbulb, Sparkles, Layers, Brain, Repeat, UserCircle2 } from "lucide-react"
+import {
+  BookOpen,
+  Code,
+  FileText,
+  Lightbulb,
+  Sparkles,
+  Layers,
+  Brain,
+  Repeat,
+  UserCircle2,
+  Database,
+} from "lucide-react"
 
 export interface PromptingMethod {
   id: string
@@ -130,5 +141,31 @@ export const promptingMethods: PromptingMethod[] = [
     examples: [
       "En tant qu'expert financier (role-playing), analyse étape par étape (chain-of-thought) la situation suivante: Une entreprise avec un chiffre d'affaires de 2M€ et des coûts fixes de 800K€ envisage un investissement de 500K€. Quel serait l'impact sur sa rentabilité à court et long terme?",
     ],
+  },
+  {
+    id: "generated-knowledge",
+    title: "Generated Knowledge",
+    shortDescription: "L'IA active d'abord ses connaissances",
+    description:
+      "Cette technique consiste à demander au modèle de générer d'abord des connaissances ou informations utiles sur un sujet, avant de formuler sa réponse finale.",
+    difficulty: "Avancé",
+    icon: <Database className="h-5 w-5 text-emerald-500" />,
+    examples: [
+      "Avant de répondre à ma question, liste d'abord les principales tendances et évolutions récentes en matière d'énergie renouvelable. Ensuite, en te basant sur ces connaissances, explique comment une PME du secteur industriel pourrait réduire son empreinte carbone tout en maîtrisant ses coûts énergétiques.",
+    ],
+    tips: [
+      "Soyez précis sur les connaissances demandées",
+      "Vérifiez les connaissances générées avant de les utiliser",
+      "Structurez votre demande en deux parties distinctes",
+      "Adaptez la complexité selon la question",
+      "Utilisez l'interaction en deux temps pour un contrôle intermédiaire",
+    ],
+    useCases: [
+      "Analyse stratégique et veille concurrentielle",
+      "Préparation de formations et contenus pédagogiques",
+      "Rédaction d'articles et de livres blancs",
+      "Analyse de marché et études d'opportunité",
+    ],
+    relatedMethods: ["contextual-augmentation", "chain-of-thought"],
   },
 ]

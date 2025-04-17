@@ -15,13 +15,6 @@ export default function CataloguePage() {
   // Hardcoded categories for the catalogue page
   const categories = [
     {
-      id: "personal-development",
-      title: "Développement personnel",
-      color: "border-blue-600",
-      description: "Prompts pour vous aider à progresser dans votre vie personnelle et professionnelle.",
-      promptCount: 12,
-    },
-    {
       id: "education",
       title: "Éducation",
       color: "border-green-600",
@@ -34,13 +27,6 @@ export default function CataloguePage() {
       color: "border-purple-600",
       description: "Prompts pour optimiser votre temps et augmenter votre productivité au quotidien.",
       promptCount: 15,
-    },
-    {
-      id: "healthy-lifestyle",
-      title: "Mode de vie sain",
-      color: "border-amber-600",
-      description: "Prompts pour améliorer votre santé physique et mentale au quotidien.",
-      promptCount: 17,
     },
   ]
 
@@ -171,14 +157,10 @@ export default function CataloguePage() {
 // Helper function to get category icon
 function getCategoryIcon(categoryId: string) {
   switch (categoryId) {
-    case "personal-development":
-      return <div className="w-5 h-5 text-blue-600">⭐</div>
     case "education":
       return <div className="w-5 h-5 text-green-600">📚</div>
     case "time-management":
       return <div className="w-5 h-5 text-purple-600">⏰</div>
-    case "healthy-lifestyle":
-      return <div className="w-5 h-5 text-amber-600">💪</div>
     default:
       return <div className="w-5 h-5 text-gray-600">📝</div>
   }
@@ -187,14 +169,10 @@ function getCategoryIcon(categoryId: string) {
 // Helper function to get category background class
 function getCategoryBgClass(categoryId: string) {
   switch (categoryId) {
-    case "personal-development":
-      return "p-2 rounded-lg bg-blue-100"
     case "education":
       return "p-2 rounded-lg bg-green-100"
     case "time-management":
       return "p-2 rounded-lg bg-purple-100"
-    case "healthy-lifestyle":
-      return "p-2 rounded-lg bg-amber-100"
     default:
       return "p-2 rounded-lg bg-gray-100"
   }

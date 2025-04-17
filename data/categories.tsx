@@ -1,10 +1,8 @@
-import { BookOpen, Brain, Clock, HeartPulse, Presentation } from "lucide-react"
+import { BookOpen, Clock, Presentation } from "lucide-react"
 
-import { educationPrompts } from "./education-prompts.ts"
-import { healthyLifestylePrompts } from "./healthy-lifestyle-prompts.ts"
-import { personalDevelopmentPrompts } from "./personal-development-prompts.ts"
-import { timeManagementPrompts } from "./time-management-prompts.ts"
-import { trainingPrompts } from "./training-prompts.ts"
+import { educationPrompts } from "./education-prompts"
+import { timeManagementPrompts } from "./time-management-prompts"
+import { trainingPrompts } from "./training-prompts"
 
 export const categories = [
   {
@@ -14,14 +12,6 @@ export const categories = [
     icon: <Presentation className="h-5 w-5" />,
     color: "green",
     prompts: trainingPrompts,
-  },
-  {
-    id: "personal-development",
-    title: "Développement personnel",
-    description: "Prompts pour favoriser le développement personnel",
-    icon: <Brain className="h-5 w-5" />,
-    color: "teal",
-    prompts: personalDevelopmentPrompts,
   },
   {
     id: "education",
@@ -38,13 +28,5 @@ export const categories = [
     icon: <Clock className="h-5 w-5" />,
     color: "blue",
     prompts: timeManagementPrompts,
-  },
-  {
-    id: "healthy-lifestyle",
-    title: "Mode de vie sain",
-    description: "Prompts pour promouvoir un mode de vie équilibré",
-    icon: <HeartPulse className="h-5 w-5" />,
-    color: "red",
-    prompts: healthyLifestylePrompts,
   },
 ]

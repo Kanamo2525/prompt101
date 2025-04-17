@@ -1,8 +1,6 @@
 import type { Prompt } from "@/types/prompt"
 import { educationPrompts } from "@/data/education-prompts"
-import { personalDevelopmentPrompts } from "@/data/personal-development-prompts"
 import { timeManagementPrompts } from "@/data/time-management-prompts"
-import { healthyLifestylePrompts } from "@/data/healthy-lifestyle-prompts"
 import { onboardingPrompts } from "@/data/onboarding-prompts"
 import { talentManagementPrompts } from "@/data/talent-management-prompts"
 import { recruitmentPrompts } from "@/data/recruitment-prompts"
@@ -11,9 +9,7 @@ import { trainingPrompts } from "@/data/training-prompts"
 // Combine all prompts
 export const allPrompts: Prompt[] = [
   ...educationPrompts,
-  ...personalDevelopmentPrompts,
   ...timeManagementPrompts,
-  ...healthyLifestylePrompts,
   ...onboardingPrompts,
   ...talentManagementPrompts,
   ...recruitmentPrompts,

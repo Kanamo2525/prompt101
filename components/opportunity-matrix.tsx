@@ -1,55 +1,73 @@
 import { MatrixComponent } from "./matrix-component"
 
-export function OpportunityMatrix() {
-  const quadrants = {
-    topLeft: {
-      title: "Tâches simples pour débutants",
-      description:
-        "Pour les tâches simples et les utilisateurs débutants, privilégiez des techniques de prompting directes et faciles à mettre en œuvre.",
-      techniques: [
-        { name: "Zero-Shot Prompting", path: "/methodes/zero-shot" },
-        { name: "One-Shot Prompting", path: "/methodes/one-shot" },
-      ],
-      color: "bg-green-50",
-    },
-    topRight: {
-      title: "Tâches simples pour experts",
-      description:
-        "Même pour des tâches simples, les experts peuvent utiliser des techniques plus avancées pour obtenir des résultats plus précis et personnalisés.",
-      techniques: [
-        { name: "Few-Shot Prompting", path: "/methodes/few-shot" },
-        { name: "Expert Role-Playing", path: "/methodes/expert-role-playing" },
-      ],
-      color: "bg-blue-50",
-    },
-    bottomLeft: {
-      title: "Tâches complexes pour débutants",
-      description:
-        "Pour les tâches complexes, même les débutants peuvent obtenir de bons résultats en utilisant des techniques qui guident le modèle étape par étape.",
-      techniques: [
-        { name: "Chain-of-Thought", path: "/methodes/chain-of-thought" },
-        { name: "Least-to-Most Prompting", path: "/methodes/least-to-most" },
-      ],
-      color: "bg-yellow-50",
-    },
-    bottomRight: {
-      title: "Tâches complexes pour experts",
-      description:
-        "Les tâches les plus complexes nécessitent des techniques avancées et une bonne compréhension du fonctionnement des modèles d'IA.",
-      techniques: [
-        { name: "Contextual Augmentation", path: "/methodes/contextual-augmentation" },
-        { name: "Iterative Prompting", path: "/methodes/iterative-prompting" },
-        { name: "Multi-Prompting", path: "/methodes/multi-prompting" },
-      ],
-      color: "bg-purple-50",
-    },
+interface OpportunityMatrixProps {
+  title?: string
+  xAxisLabel?: string
+  yAxisLabel?: string
+  topLeft?: {
+    id: string
+    title: string
+    description: string
+    link?: string
   }
+  topRight?: {
+    id: string
+    title: string
+    description: string
+    link?: string
+  }
+  bottomLeft?: {
+    id: string
+    title: string
+    description: string
+    link?: string
+  }
+  bottomRight?: {
+    id: string
+    title: string
+    description: string
+    link?: string
+  }
+}
 
+export const OpportunityMatrix = ({
+  title = "Matrice d'opportunité des prompts",
+  xAxisLabel = "Complexité",
+  yAxisLabel = "Impact",
+  topLeft = {
+    id: "high-impact-low-complexity",
+    title: "Impact élevé, Complexité faible",
+    description: "Prompts simples avec un grand impact. Priorité maximale.",
+    link: "/categories/education",
+  },
+  topRight = {
+    id: "high-impact-high-complexity",
+    title: "Impact élevé, Complexité élevée",
+    description: "Prompts complexes mais à fort impact. Nécessitent plus d'effort mais valent l'investissement.",
+    link: "/categories/time-management",
+  },
+  bottomLeft = {
+    id: "low-impact-low-complexity",
+    title: "Impact faible, Complexité faible",
+    description: "Prompts simples avec un impact limité. Utiles pour des tâches quotidiennes.",
+    link: "/methodes/zero-shot",
+  },
+  bottomRight = {
+    id: "low-impact-high-complexity",
+    title: "Impact faible, Complexité élevée",
+    description: "Prompts complexes avec un impact limité. À éviter sauf si nécessaire.",
+    link: "/methodes/chain-of-thought",
+  },
+}: OpportunityMatrixProps) => {
   return (
     <MatrixComponent
-      xAxisLabel="Niveau d'expertise de l'utilisateur"
-      yAxisLabel="Complexité de la tâche"
-      quadrants={quadrants}
+      title={title}
+      xAxisLabel={xAxisLabel}
+      yAxisLabel={yAxisLabel}
+      topLeft={topLeft}
+      topRight={topRight}
+      bottomLeft={bottomLeft}
+      bottomRight={bottomRight}
     />
   )
 }
