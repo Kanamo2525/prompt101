@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { ChevronRight } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -158,69 +157,53 @@ export function InteractiveDecisionTree() {
           </p>
         </div>
 
-        <AnimatePresence mode="wait">
-          {result ? (
-            <motion.div
-              key="result"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <div className="text-center">
-                <h3 className="text-xl font-bold text-green-600 mb-2">Technique recommandée</h3>
-                <div className="inline-block bg-green-50 border border-green-200 rounded-lg p-4">
-                  <h4 className="text-lg font-semibold">{result.technique}</h4>
-                  <p className="text-gray-600 mt-2">{result.description}</p>
-                </div>
+        {result ? (
+          <div className="space-y-4">
+            <div className="text-center">
+              <h3 className="text-xl font-bold text-green-600 mb-2">Technique recommandée</h3>
+              <div className="inline-block bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-lg font-semibold">{result.technique}</h4>
+                <p className="text-gray-600 mt-2">{result.description}</p>
               </div>
+            </div>
 
-              <div className="flex justify-center mt-6">
-                <Link href={result.path}>
-                  <Button className="mr-4">
-                    En savoir plus <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Button variant="outline" onClick={handleReset}>
-                  Recommencer
+            <div className="flex justify-center mt-6">
+              <Link href={result.path}>
+                <Button className="mr-4">
+                  En savoir plus <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Button variant="outline" onClick={handleReset}>
+                Recommencer
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <h3 className="text-xl font-medium text-center">{step.question}</h3>
+
+            <div className="space-y-3">
+              {step.options.map((option, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleOptionClick(option)}
+                  className="w-full text-left p-4 border rounded-lg hover:bg-gray-50 transition-colors flex justify-between items-center group"
+                >
+                  <span>{option.label}</span>
+                  <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                </button>
+              ))}
+            </div>
+
+            {history.length > 0 && (
+              <div className="flex justify-center mt-4">
+                <Button variant="ghost" size="sm" onClick={handleBack}>
+                  Retour
                 </Button>
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-6"
-            >
-              <h3 className="text-xl font-medium text-center">{step.question}</h3>
-
-              <div className="space-y-3">
-                {step.options.map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleOptionClick(option)}
-                    className="w-full text-left p-4 border rounded-lg hover:bg-gray-50 transition-colors flex justify-between items-center group"
-                  >
-                    <span>{option.label}</span>
-                    <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
-                  </button>
-                ))}
-              </div>
-
-              {history.length > 0 && (
-                <div className="flex justify-center mt-4">
-                  <Button variant="ghost" size="sm" onClick={handleBack}>
-                    Retour
-                  </Button>
-                </div>
-              )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   )

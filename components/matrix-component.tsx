@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 
 interface QuadrantContent {
   title: string
@@ -106,75 +105,115 @@ export function MatrixComponent({
         {/* Grille de la matrice */}
         <div className="absolute top-8 right-8 bottom-8 left-8 grid grid-cols-2 grid-rows-2 gap-2">
           {/* Quadrant supérieur gauche */}
-          <motion.div
-            className={`${quadrantsWithColors.topLeft.color} border rounded-tl-lg p-4 cursor-pointer transition-all`}
-            whileHover={{ scale: 1.02 }}
+          <div
+            className={`${quadrantsWithColors.topLeft.color} border rounded-tl-lg p-4 cursor-pointer transition-all ${
+              activeQuadrant === "topLeft" ? "shadow-lg scale-105 z-10" : "hover:shadow-md hover:scale-[1.02]"
+            }`}
             onClick={() => handleQuadrantClick("topLeft")}
-            animate={{
-              scale: activeQuadrant === "topLeft" ? 1.05 : 1,
-              zIndex: activeQuadrant === "topLeft" ? 10 : 1,
-              boxShadow: activeQuadrant === "topLeft" ? "0 10px 25px -5px rgba(0, 0, 0, 0.1)" : "none",
-            }}
           >
             <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.topLeft.title}</h3>
-            <AnimatePresence>
-              {activeQuadrant === "topLeft" ? (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.topLeft.description}</p>
-                  {quadrantsWithColors.topLeft.techniques && quadrantsWithColors.topLeft.techniques.length > 0 && (
-                    <div className="mt-2">
-                      <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
-                      <ul className="list-disc list-inside text-sm">
-                        {quadrantsWithColors.topLeft.techniques.map((technique, index) => (
-                          <li key={index} className="mb-1">
-                            <Link href={technique.path} className="text-blue-600 hover:underline">
-                              {technique.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </motion.div>
-              ) : (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-gray-500">
-                  Cliquez pour plus d'infos
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.div>
+            {activeQuadrant === "topLeft" ? (
+              <>
+                <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.topLeft.description}</p>
+                {quadrantsWithColors.topLeft.techniques && quadrantsWithColors.topLeft.techniques.length > 0 && (
+                  <div className="mt-2">
+                    <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
+                    <ul className="list-disc list-inside text-sm">
+                      {quadrantsWithColors.topLeft.techniques.map((technique, index) => (
+                        <li key={index} className="mb-1">
+                          <Link href={technique.path} className="text-blue-600 hover:underline">
+                            {technique.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="text-xs text-gray-500">Cliquez pour plus d'infos</p>
+            )}
+          </div>
 
           {/* Quadrant supérieur droit */}
-          <motion.div
-            className={`${quadrantsWithColors.topRight.color} border rounded-tr-lg p-4 cursor-pointer transition-all`}
-            whileHover={{ scale: 1.02 }}
+          <div
+            className={`${quadrantsWithColors.topRight.color} border rounded-tr-lg p-4 cursor-pointer transition-all ${
+              activeQuadrant === "topRight" ? "shadow-lg scale-105 z-10" : "hover:shadow-md hover:scale-[1.02]"
+            }`}
             onClick={() => handleQuadrantClick("topRight")}
-            animate={{
-              scale: activeQuadrant === "topRight" ? 1.05 : 1,
-              zIndex: activeQuadrant === "topRight" ? 10 : 1,
-              boxShadow: activeQuadrant === "topRight" ? "0 10px 25px -5px rgba(0, 0, 0, 0.1)" : "none",
-            }}
           >
             <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.topRight.title}</h3>
-            <AnimatePresence>
-              {activeQuadrant === "topRight" ? (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.topRight.description}</p>
-                  {quadrantsWithColors.topRight.techniques && quadrantsWithColors.topRight.techniques.length > 0 && (
+            {activeQuadrant === "topRight" ? (
+              <>
+                <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.topRight.description}</p>
+                {quadrantsWithColors.topRight.techniques && quadrantsWithColors.topRight.techniques.length > 0 && (
+                  <div className="mt-2">
+                    <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
+                    <ul className="list-disc list-inside text-sm">
+                      {quadrantsWithColors.topRight.techniques.map((technique, index) => (
+                        <li key={index} className="mb-1">
+                          <Link href={technique.path} className="text-blue-600 hover:underline">
+                            {technique.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="text-xs text-gray-500">Cliquez pour plus d'infos</p>
+            )}
+          </div>
+
+          {/* Quadrant inférieur gauche */}
+          <div
+            className={`${quadrantsWithColors.bottomLeft.color} border rounded-bl-lg p-4 cursor-pointer transition-all ${
+              activeQuadrant === "bottomLeft" ? "shadow-lg scale-105 z-10" : "hover:shadow-md hover:scale-[1.02]"
+            }`}
+            onClick={() => handleQuadrantClick("bottomLeft")}
+          >
+            <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.bottomLeft.title}</h3>
+            {activeQuadrant === "bottomLeft" ? (
+              <>
+                <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.bottomLeft.description}</p>
+                {quadrantsWithColors.bottomLeft.techniques && quadrantsWithColors.bottomLeft.techniques.length > 0 && (
+                  <div className="mt-2">
+                    <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
+                    <ul className="list-disc list-inside text-sm">
+                      {quadrantsWithColors.bottomLeft.techniques.map((technique, index) => (
+                        <li key={index} className="mb-1">
+                          <Link href={technique.path} className="text-blue-600 hover:underline">
+                            {technique.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              <p className="text-xs text-gray-500">Cliquez pour plus d'infos</p>
+            )}
+          </div>
+
+          {/* Quadrant inférieur droit */}
+          <div
+            className={`${quadrantsWithColors.bottomRight.color} border rounded-br-lg p-4 cursor-pointer transition-all ${
+              activeQuadrant === "bottomRight" ? "shadow-lg scale-105 z-10" : "hover:shadow-md hover:scale-[1.02]"
+            }`}
+            onClick={() => handleQuadrantClick("bottomRight")}
+          >
+            <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.bottomRight.title}</h3>
+            {activeQuadrant === "bottomRight" ? (
+              <>
+                <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.bottomRight.description}</p>
+                {quadrantsWithColors.bottomRight.techniques &&
+                  quadrantsWithColors.bottomRight.techniques.length > 0 && (
                     <div className="mt-2">
                       <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
                       <ul className="list-disc list-inside text-sm">
-                        {quadrantsWithColors.topRight.techniques.map((technique, index) => (
+                        {quadrantsWithColors.bottomRight.techniques.map((technique, index) => (
                           <li key={index} className="mb-1">
                             <Link href={technique.path} className="text-blue-600 hover:underline">
                               {technique.name}
@@ -184,104 +223,11 @@ export function MatrixComponent({
                       </ul>
                     </div>
                   )}
-                </motion.div>
-              ) : (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-gray-500">
-                  Cliquez pour plus d'infos
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Quadrant inférieur gauche */}
-          <motion.div
-            className={`${quadrantsWithColors.bottomLeft.color} border rounded-bl-lg p-4 cursor-pointer transition-all`}
-            whileHover={{ scale: 1.02 }}
-            onClick={() => handleQuadrantClick("bottomLeft")}
-            animate={{
-              scale: activeQuadrant === "bottomLeft" ? 1.05 : 1,
-              zIndex: activeQuadrant === "bottomLeft" ? 10 : 1,
-              boxShadow: activeQuadrant === "bottomLeft" ? "0 10px 25px -5px rgba(0, 0, 0, 0.1)" : "none",
-            }}
-          >
-            <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.bottomLeft.title}</h3>
-            <AnimatePresence>
-              {activeQuadrant === "bottomLeft" ? (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.bottomLeft.description}</p>
-                  {quadrantsWithColors.bottomLeft.techniques &&
-                    quadrantsWithColors.bottomLeft.techniques.length > 0 && (
-                      <div className="mt-2">
-                        <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
-                        <ul className="list-disc list-inside text-sm">
-                          {quadrantsWithColors.bottomLeft.techniques.map((technique, index) => (
-                            <li key={index} className="mb-1">
-                              <Link href={technique.path} className="text-blue-600 hover:underline">
-                                {technique.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                </motion.div>
-              ) : (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-gray-500">
-                  Cliquez pour plus d'infos
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Quadrant inférieur droit */}
-          <motion.div
-            className={`${quadrantsWithColors.bottomRight.color} border rounded-br-lg p-4 cursor-pointer transition-all`}
-            whileHover={{ scale: 1.02 }}
-            onClick={() => handleQuadrantClick("bottomRight")}
-            animate={{
-              scale: activeQuadrant === "bottomRight" ? 1.05 : 1,
-              zIndex: activeQuadrant === "bottomRight" ? 10 : 1,
-              boxShadow: activeQuadrant === "bottomRight" ? "0 10px 25px -5px rgba(0, 0, 0, 0.1)" : "none",
-            }}
-          >
-            <h3 className="font-bold text-lg mb-2">{quadrantsWithColors.bottomRight.title}</h3>
-            <AnimatePresence>
-              {activeQuadrant === "bottomRight" ? (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-sm text-gray-600 mb-3">{quadrantsWithColors.bottomRight.description}</p>
-                  {quadrantsWithColors.bottomRight.techniques &&
-                    quadrantsWithColors.bottomRight.techniques.length > 0 && (
-                      <div className="mt-2">
-                        <h4 className="font-medium text-sm mb-1">Techniques recommandées:</h4>
-                        <ul className="list-disc list-inside text-sm">
-                          {quadrantsWithColors.bottomRight.techniques.map((technique, index) => (
-                            <li key={index} className="mb-1">
-                              <Link href={technique.path} className="text-blue-600 hover:underline">
-                                {technique.name}
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                </motion.div>
-              ) : (
-                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs text-gray-500">
-                  Cliquez pour plus d'infos
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </motion.div>
+              </>
+            ) : (
+              <p className="text-xs text-gray-500">Cliquez pour plus d'infos</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

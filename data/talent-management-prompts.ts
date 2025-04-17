@@ -2,396 +2,215 @@ import type { Prompt } from "@/types/prompt"
 
 export const talentManagementPrompts: Prompt[] = [
   {
-    id: "talent-1",
+    id: "skills-development-plan",
     title: "Plan de développement des compétences",
-    description: "Créer un plan de développement personnalisé pour un employé",
-    content: `En tant que responsable du développement des talents, crée un plan de développement personnalisé pour un employé avec le profil suivant:
-- Poste actuel: [POSTE]
-- Expérience: [ANNÉES D'EXPÉRIENCE]
-- Compétences fortes: [COMPÉTENCES FORTES]
-- Compétences à développer: [COMPÉTENCES À DÉVELOPPER]
-- Objectifs de carrière: [OBJECTIFS]
+    description:
+      "Un prompt pour créer un plan de développement personnalisé pour aider les employés à acquérir de nouvelles compétences.",
+    content: `En tant que conseiller en développement professionnel, crée un plan de développement des compétences sur 6 mois pour un employé avec le profil suivant :
 
-Le plan doit inclure:
-1. Des objectifs d'apprentissage spécifiques
-2. Des ressources et formations recommandées
-3. Des projets ou missions pour mettre en pratique
-4. Un calendrier sur 6 mois
-5. Des indicateurs de progrès mesurables`,
+Poste actuel : [POSTE]
+Niveau d'expérience : [ANNÉES D'EXPÉRIENCE]
+Compétences actuelles : [COMPÉTENCES ACTUELLES]
+Compétences à développer : [COMPÉTENCES CIBLES]
+Objectifs de carrière : [OBJECTIFS]
+
+Pour chaque compétence à développer, inclus :
+1. Des objectifs d'apprentissage spécifiques et mesurables
+2. Des ressources recommandées (formations, livres, cours en ligne)
+3. Des activités pratiques pour renforcer l'apprentissage
+4. Des étapes intermédiaires avec des délais
+5. Des méthodes pour mesurer les progrès
+
+Termine par un calendrier récapitulatif des actions sur 6 mois.`,
     category: "talent-management",
-    difficulty: 3,
-    popularity: 92,
-    tags: ["développement", "compétences", "carrière"],
+    difficulty: "Modéré",
+    popularity: 87,
+    tags: ["développement", "formation", "compétences", "carrière", "RH"],
     variants: [
       {
-        id: "talent-1-v1",
-        title: "Version leadership",
-        content: `Crée un plan de développement axé sur les compétences de leadership pour un [POSTE] qui souhaite évoluer vers un rôle de management.`,
+        id: "technical-skills-plan",
+        title: "Plan de développement technique",
+        description: "Version spécifique pour les compétences techniques en informatique",
+        content: `En tant que conseiller en développement technique, crée un plan de développement des compétences sur 6 mois pour un développeur avec le profil suivant :
+
+Poste actuel : [POSTE TECHNIQUE]
+Niveau d'expérience : [ANNÉES D'EXPÉRIENCE]
+Stack technique actuelle : [TECHNOLOGIES MAÎTRISÉES]
+Technologies à apprendre : [TECHNOLOGIES CIBLES]
+Objectifs de carrière : [OBJECTIFS]
+
+Pour chaque technologie à développer, inclus :
+1. Des objectifs d'apprentissage spécifiques et mesurables
+2. Des ressources recommandées (documentation, tutoriels, cours en ligne, certifications)
+3. Des projets pratiques pour appliquer les connaissances
+4. Un parcours d'apprentissage progressif avec des jalons
+5. Des méthodes pour valider les acquis (code reviews, projets personnels)
+
+Termine par un calendrier récapitulatif des actions sur 6 mois avec une estimation du temps d'apprentissage hebdomadaire nécessaire.`,
+      },
+      {
+        id: "leadership-development-plan",
+        title: "Plan de développement du leadership",
+        description: "Version axée sur le développement des compétences de leadership",
+        content: `En tant que coach exécutif, crée un plan de développement des compétences de leadership sur 6 mois pour un manager avec le profil suivant :
+
+Poste actuel : [POSTE MANAGÉRIAL]
+Niveau d'expérience en management : [ANNÉES D'EXPÉRIENCE]
+Taille de l'équipe : [NOMBRE DE PERSONNES]
+Compétences de leadership actuelles : [FORCES]
+Compétences de leadership à développer : [AXES D'AMÉLIORATION]
+Objectifs de carrière : [OBJECTIFS]
+
+Pour chaque compétence de leadership à développer, inclus :
+1. Des objectifs de développement spécifiques et mesurables
+2. Des ressources recommandées (livres, formations, mentoring)
+3. Des exercices pratiques et situations d'application
+4. Des opportunités de feedback et d'auto-évaluation
+5. Des indicateurs de progrès
+
+Termine par un calendrier récapitulatif des actions sur 6 mois et des conseils pour intégrer ce développement dans la pratique quotidienne du management.`,
       },
     ],
   },
   {
-    id: "talent-2",
+    id: "constructive-feedback",
     title: "Feedback constructif",
-    description: "Formuler un feedback constructif pour un collaborateur",
-    content: `Aide-moi à formuler un feedback constructif pour un collaborateur concernant [SITUATION/COMPORTEMENT]. 
+    description: "Un prompt pour générer un feedback constructif et actionnable pour les évaluations de performance.",
+    content: `Aide-moi à formuler un feedback constructif pour un membre de mon équipe. Voici les informations :
 
-Le feedback doit:
-- Être spécifique et factuel
-- Se concentrer sur le comportement, pas la personne
-- Inclure l'impact de ce comportement
-- Proposer des pistes d'amélioration concrètes
-- Se terminer sur une note positive
+Contexte : [CONTEXTE DE L'ÉVALUATION]
+Points forts observés : [POINTS FORTS]
+Axes d'amélioration : [AXES D'AMÉLIORATION]
+Objectifs précédents : [OBJECTIFS FIXÉS]
+Résultats atteints : [RÉSULTATS OBTENUS]
 
-Propose-moi deux versions: une pour un échange oral et une pour un email.`,
+Génère un feedback structuré qui :
+1. Commence par reconnaître les réussites et points forts spécifiques
+2. Aborde les axes d'amélioration de manière constructive et non accusatoire
+3. Utilise des exemples concrets pour illustrer les points
+4. Propose des actions spécifiques pour progresser
+5. Se termine sur une note positive et encourageante
+
+Le ton doit être professionnel, bienveillant et orienté vers la croissance professionnelle.`,
     category: "talent-management",
-    difficulty: 2,
-    popularity: 88,
-    tags: ["feedback", "communication", "management"],
+    difficulty: "Modéré",
+    popularity: 92,
+    tags: ["feedback", "évaluation", "performance", "management", "communication"],
     variants: [
       {
-        id: "talent-2-v1",
-        title: "Feedback de performance",
-        content: `Aide-moi à rédiger un feedback équilibré pour une évaluation annuelle de performance, mettant en lumière à la fois les réussites et les axes d'amélioration de [NOM] au poste de [POSTE].`,
+        id: "performance-review-feedback",
+        title: "Feedback d'évaluation annuelle",
+        description: "Version spécifique pour les entretiens annuels d'évaluation",
+        content: `En tant que responsable RH, aide-moi à rédiger un feedback d'évaluation annuelle complet pour un collaborateur. Voici les informations :
+
+Poste du collaborateur : [POSTE]
+Ancienneté : [ANCIENNETÉ]
+Objectifs annuels fixés : [OBJECTIFS]
+Réalisations principales : [RÉALISATIONS]
+Points forts démontrés : [POINTS FORTS]
+Axes de développement identifiés : [AXES DE DÉVELOPPEMENT]
+Évaluation globale : [ÉVALUATION] (Dépasse les attentes / Répond aux attentes / Partiellement satisfaisant / Insuffisant)
+
+Génère une évaluation structurée qui :
+1. Résume la performance globale de l'année
+2. Détaille les réalisations principales avec impact mesurable
+3. Souligne les compétences et comportements positifs observés
+4. Aborde les axes de développement de manière constructive
+5. Propose des objectifs SMART pour l'année à venir
+6. Inclut un plan de développement avec des actions concrètes
+7. Se termine par une conclusion qui reflète l'évaluation globale
+
+Le ton doit être professionnel, factuel et équilibré.`,
       },
       {
-        id: "talent-2-v2",
+        id: "corrective-feedback",
         title: "Feedback de recadrage",
-        content: `Aide-moi à formuler un feedback de recadrage constructif suite à [SITUATION PROBLÉMATIQUE] avec un collaborateur, tout en préservant la relation de travail et en l'encourageant à s'améliorer.`,
+        description: "Version pour aborder un problème de performance ou de comportement",
+        content: `En tant que manager, aide-moi à préparer un feedback de recadrage constructif suite à une situation problématique. Voici les informations :
+
+Contexte : [DESCRIPTION DE LA SITUATION]
+Comportement/performance problématique : [PROBLÈME OBSERVÉ]
+Impact sur l'équipe/l'entreprise : [CONSÉQUENCES]
+Attentes non satisfaites : [ATTENTES]
+Historique (premier incident ou récurrent) : [HISTORIQUE]
+
+Génère un script de feedback structuré qui :
+1. Débute par une ouverture neutre qui pose le cadre de la discussion
+2. Décrit factuellement le comportement ou la performance problématique
+3. Explique l'impact concret sur l'équipe, les clients ou l'entreprise
+4. Clarifie les attentes et standards requis
+5. Invite la personne à partager sa perspective
+6. Propose un plan d'action correctif clair et des ressources si nécessaire
+7. Établit un suivi et des conséquences en cas de non-amélioration
+8. Se termine par un encouragement et une expression de confiance
+
+Le ton doit être ferme mais respectueux, axé sur le comportement et non la personne, et orienté vers l'amélioration future.`,
       },
     ],
   },
   {
-    id: "performance-review-template",
-    title: "Template d'évaluation de performance",
-    description: "Crée un template d'évaluation de performance complet et équilibré",
-    difficulty: 2,
-    category: "talent-management",
-    popularity: 85,
-    tags: ["évaluation", "performance", "template"],
-    content: `En tant que spécialiste RH, crée un template d'évaluation de performance complet pour [poste/niveau] dans [secteur/industrie].
-
-Le template doit inclure:
-
-1. Informations générales
-   - Données de l'employé et du manager
-   - Période d'évaluation
-   - Date de l'entretien
-
-2. Évaluation des objectifs
-   - Liste des objectifs fixés pour la période
-   - Échelle d'évaluation (dépassé/atteint/partiellement atteint/non atteint)
-   - Espace pour commentaires et exemples concrets
-
-3. Évaluation des compétences
-   - Compétences techniques spécifiques au poste
-   - Compétences comportementales/soft skills
-   - Échelle d'évaluation (1-5 avec descripteurs clairs)
-
-4. Réalisations et défis
-   - Principales réussites de la période
-   - Défis rencontrés et solutions apportées
-
-5. Plan de développement
-   - Forces à capitaliser
-   - Axes d'amélioration
-   - Actions de développement proposées
-
-6. Objectifs pour la période suivante
-   - Nouveaux objectifs SMART
-   - Indicateurs de mesure
-
-7. Commentaires et signatures
-   - Feedback global du manager
-   - Auto-évaluation de l'employé
-   - Espace pour signatures
-
-Assure-toi que le template soit équilibré entre évaluation quantitative et qualitative, et qu'il encourage un dialogue constructif.`,
-    variants: [
-      {
-        id: "performance-review-template-v1",
-        title: "Version pour startup tech",
-        content: `# ÉVALUATION DE PERFORMANCE & DÉVELOPPEMENT
-## Startup Tech - Développeur Full Stack
-
-### 1. INFORMATIONS GÉNÉRALES
-**Collaborateur:** [Nom & Prénom]  
-**Poste:** Développeur Full Stack  
-**Niveau:** [Junior/Intermédiaire/Senior]  
-**Manager:** [Nom & Prénom]  
-**Période d'évaluation:** [Date début] à [Date fin]  
-**Date de l'entretien:** [Date]
-
-### 2. ÉVALUATION DES OKRs & PROJETS CLÉS
-
-| Objectif / Projet | Mesures de succès | Résultat | Évaluation |
-|-------------------|-------------------|----------|------------|
-| [Objectif 1] | [Critères mesurables] | [Résultat obtenu] | ○ Dépassé ○ Atteint ○ Partiellement atteint ○ Non atteint |
-| [Objectif 2] | [Critères mesurables] | [Résultat obtenu] | ○ Dépassé ○ Atteint ○ Partiellement atteint ○ Non atteint |
-| [Objectif 3] | [Critères mesurables] | [Résultat obtenu] | ○ Dépassé ○ Atteint ○ Partiellement atteint ○ Non atteint |
-
-**Impact business:**  
-_Comment les contributions ont impacté les métriques de l'entreprise? (Croissance, rétention, performance, etc.)_
-
-### 3. ÉVALUATION DES COMPÉTENCES TECHNIQUES
-
-| Compétence | Niveau attendu | Auto-évaluation | Évaluation manager | Commentaires |
-|------------|----------------|-----------------|-------------------|-------------|
-| Frontend (React/Vue/etc.) | [1-5] | [1-5] | [1-5] | |
-| Backend (Node/Python/etc.) | [1-5] | [1-5] | [1-5] | |
-| Architecture système | [1-5] | [1-5] | [1-5] | |
-| DevOps & CI/CD | [1-5] | [1-5] | [1-5] | |
-| Tests & QA | [1-5] | [1-5] | [1-5] | |
-| Sécurité | [1-5] | [1-5] | [1-5] | |
-
-_Échelle: 1=Débutant, 2=En progression, 3=Compétent, 4=Avancé, 5=Expert_
-
-### 4. COMPÉTENCES COMPORTEMENTALES & VALEURS
-
-| Compétence | Description | Évaluation | Exemples concrets |
-|------------|-------------|------------|-------------------|
-| Ownership | Prend responsabilité des projets de A à Z | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-| Agilité | S'adapte rapidement aux changements | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-| Collaboration | Travaille efficacement en équipe | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-| Communication | Communique clairement et proactivement | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-| Innovation | Propose des solutions créatives | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-| Apprentissage | Développe constamment ses compétences | ○ Exemplaire ○ Fort ○ Satisfaisant ○ À développer | |
-
-### 5. RÉALISATIONS & CONTRIBUTIONS
-
-**Top 3 des réalisations:**
-1. 
-2. 
-3. 
-
-**Contributions à la culture & à l'équipe:**
-_Comment a contribué au-delà du code? (Mentorat, documentation, amélioration des processus, etc.)_
-
-**Défis surmontés:**
-_Obstacles majeurs rencontrés et comment ils ont été gérés_
-
-### 6. PLAN DE DÉVELOPPEMENT
-
-**Forces à capitaliser:**
-1. 
-2. 
-3. 
-
-**Axes d'amélioration:**
-1. 
-2. 
-3. 
-
-**Actions de développement:**
-
-| Action | Ressources nécessaires | Timeline | Mesure de succès |
-|--------|------------------------|----------|------------------|
-| | | | |
-| | | | |
-| | | | |
-
-### 7. OBJECTIFS POUR LA PROCHAINE PÉRIODE
-
-| Objectif | Mesures de succès | Échéance | Alignement avec objectifs d'équipe/entreprise |
-|----------|-------------------|----------|---------------------------------------------|
-| | | | |
-| | | | |
-| | | | |
-
-### 8. ÉVOLUTION DE CARRIÈRE
-
-**Aspirations professionnelles:**
-_Court terme (6-12 mois) et long terme (1-3 ans)_
-
-**Parcours de progression envisagé:**
-_Ex: Développeur Senior → Lead Developer → Engineering Manager / Architect_
-
-**Compétences à développer pour la prochaine étape:**
-
-### 9. FEEDBACK OUVERT
-
-**Feedback du manager:**
-_Points forts, axes d'amélioration, conseils spécifiques_
-
-**Feedback du collaborateur:**
-_Comment le manager/l'entreprise pourrait mieux soutenir sa réussite_
-
-**Satisfaction globale:**
-- Satisfaction du collaborateur: [1-10]
-- Satisfaction du manager: [1-10]
-
-### 10. CONCLUSION & SIGNATURES
-
-**Évaluation globale:**  
-○ Exceptionnel - Dépasse constamment les attentes  
-○ Très performant - Dépasse souvent les attentes  
-○ Performant - Répond pleinement aux attentes  
-○ En développement - Répond partiellement aux attentes  
-○ À améliorer - En dessous des attentes
-
-**Prochaines étapes:**
-
-**Date & Signatures:**
-
-Collaborateur: ________________________ Date: __________
-
-Manager: _____________________________ Date: __________
-
-RH: __________________________________ Date: __________`,
-      },
-      {
-        id: "performance-review-template-v2",
-        title: "Version pour secteur bancaire",
-        content: `# ÉVALUATION ANNUELLE DE PERFORMANCE
-## Secteur Bancaire - [Poste]
-
-### INFORMATIONS GÉNÉRALES
-- **Collaborateur:** [Nom & Prénom]
-- **Matricule:** [Numéro]
-- **Département/Agence:** [Département/Agence]
-- **Fonction:** [Fonction précise]
-- **Ancienneté dans la fonction:** [X années/mois]
-- **Supérieur hiérarchique:** [Nom & Fonction]
-- **Période d'évaluation:** Du [Date] au [Date]
-
-### OBJECTIFS QUANTITATIFS
-
-| Objectif | Pondération | Cible | Résultat | Taux d'atteinte | Score pondéré |
-|----------|-------------|-------|----------|-----------------|---------------|
-| [Objectif commercial 1] | [X%] | [Valeur cible] | [Valeur atteinte] | [%] | [Score] |
-| [Objectif commercial 2] | [X%] | [Valeur cible] | [Valeur atteinte] | [%] | [Score] |
-| [Objectif de conformité] | [X%] | [Valeur cible] | [Valeur atteinte] | [%] | [Score] |
-| [Objectif de qualité de service] | [X%] | [Valeur cible] | [Valeur atteinte] | [%] | [Score] |
-
-**Score global objectifs quantitatifs:** [Score/5]
-
-### COMPÉTENCES TECHNIQUES
-
-| Compétence | Définition | Niveau attendu | Niveau évalué | Commentaires |
-|------------|------------|----------------|---------------|-------------|
-| Expertise produits bancaires | Maîtrise des produits et services, capacité à conseiller | [1-5] | [1-5] | |
-| Analyse de risque | Évaluation pertinente des risques clients/opérations | [1-5] | [1-5] | |
-| Conformité réglementaire | Application des procédures et réglementations | [1-5] | [1-5] | |
-| Maîtrise des outils | Utilisation efficace des systèmes informatiques | [1-5] | [1-5] | |
-| Gestion administrative | Rigueur dans le traitement des dossiers | [1-5] | [1-5] | |
-
-**Score compétences techniques:** [Score/5]
-
-### COMPÉTENCES COMPORTEMENTALES
-
-| Compétence | Définition | Niveau attendu | Niveau évalué | Commentaires |
-|------------|------------|----------------|---------------|-------------|
-| Orientation client | Qualité de la relation et satisfaction client | [1-5] | [1-5] | |
-| Éthique professionnelle | Respect des valeurs et de la déontologie | [1-5] | [1-5] | |
-| Travail en équipe | Collaboration et partage d'information | [1-5] | [1-5] | |
-| Communication | Clarté et pertinence des échanges | [1-5] | [1-5] | |
-| Adaptabilité | Capacité à s'adapter aux changements | [1-5] | [1-5] | |
-
-**Score compétences comportementales:** [Score/5]
-
-### SYNTHÈSE DE LA PERFORMANCE
-
-| Critère | Pondération | Score | Score pondéré |
-|---------|-------------|-------|---------------|
-| Objectifs quantitatifs | 50% | [Score/5] | [Score pondéré] |
-| Compétences techniques | 30% | [Score/5] | [Score pondéré] |
-| Compétences comportementales | 20% | [Score/5] | [Score pondéré] |
-
-**Score global annuel:** [Score/5]
-
-**Classification de la performance:**
-□ A - Exceptionnel (4.5-5)
-□ B - Supérieur aux attentes (3.5-4.4)
-□ C - Conforme aux attentes (2.5-3.4)
-□ D - Partiellement conforme (1.5-2.4)
-□ E - En dessous des attentes (1-1.4)
-
-### RÉALISATIONS MARQUANTES
-_Principales contributions et succès durant la période évaluée_
-1. 
-2. 
-3. 
-
-### AXES DE DÉVELOPPEMENT
-
-| Axe d'amélioration | Plan d'action | Ressources nécessaires | Échéance | Indicateurs de réussite |
-|-------------------|---------------|------------------------|----------|------------------------|
-| | | | | |
-| | | | | |
-
-### ÉVOLUTION PROFESSIONNELLE
-**Aspirations du collaborateur:**
-
-**Potentiel identifié:**
-□ Mobilité horizontale vers: [Fonction/Département]
-□ Évolution verticale vers: [Fonction]
-□ Expertise dans le domaine actuel
-□ Autre: [Préciser]
-
-**Formations recommandées:**
-1. 
-2. 
-3. 
-
-### OBJECTIFS POUR LA PROCHAINE PÉRIODE
-
-| Objectif | Indicateur de mesure | Cible | Pondération | Moyens alloués |
-|----------|---------------------|-------|-------------|---------------|
-| | | | | |
-| | | | | |
-| | | | | |
-
-### COMMENTAIRES
-
-**Commentaires de l'évaluateur:**
-
-**Commentaires du collaborateur:**
-
-### VALIDATION
-
-Fait à [Lieu], le [Date]
-
-Signatures:
-
-Collaborateur: ________________________
-
-Supérieur hiérarchique: ________________________
-
-Responsable N+2: ________________________
-
-Direction des Ressources Humaines: ________________________`,
-      },
-    ],
-  },
-  {
-    id: "talent-3",
+    id: "recruitment-interview",
     title: "Entretien de recrutement",
-    description: "Préparer des questions d'entretien pertinentes",
-    content: `En tant que recruteur pour le poste de [INTITULÉ DU POSTE], aide-moi à préparer un guide d'entretien structuré.
+    description: "Un prompt pour générer des questions pertinentes et structurées pour un entretien de recrutement.",
+    content: `Aide-moi à préparer un guide d'entretien de recrutement pour le poste suivant :
 
-Je souhaite évaluer les aspects suivants:
-- Compétences techniques requises: [LISTE DES COMPÉTENCES]
-- Soft skills essentielles: [LISTE DES SOFT SKILLS]
-- Adéquation culturelle avec notre entreprise qui valorise [VALEURS DE L'ENTREPRISE]
+Intitulé du poste : [INTITULÉ]
+Niveau d'expérience requis : [NIVEAU]
+Compétences techniques recherchées : [COMPÉTENCES TECHNIQUES]
+Compétences comportementales importantes : [COMPÉTENCES COMPORTEMENTALES]
+Contexte de l'équipe : [CONTEXTE]
 
-Pour chaque aspect, propose:
-1. 3-5 questions comportementales (basées sur des situations passées)
-2. 1-2 questions de mise en situation
-3. 1 exercice pratique ou étude de cas courte
+Génère un guide d'entretien structuré qui comprend :
 
-Inclus également:
-- Des conseils pour interpréter les réponses
-- Une grille d'évaluation simple`,
+1. Une introduction de 2-3 minutes pour présenter l'entreprise et le poste
+2. 5 questions techniques pertinentes pour évaluer les compétences clés
+3. 5 questions comportementales basées sur la méthode STAR
+4. 3 questions pour évaluer l'adéquation culturelle avec l'entreprise
+5. 2 questions pour évaluer les motivations du candidat
+6. 3 questions à poser en fin d'entretien pour permettre au candidat de s'exprimer
+
+Pour chaque question, inclus :
+- La question elle-même
+- Ce que tu cherches à évaluer
+- Des exemples de bonnes et mauvaises réponses
+- Des questions de suivi potentielles`,
     category: "talent-management",
-    difficulty: 3,
-    popularity: 90,
-    tags: ["recrutement", "entretien", "questions"],
+    difficulty: "Facile",
+    popularity: 95,
+    tags: ["recrutement", "entretien", "sélection", "RH", "questions"],
     variants: [
       {
-        id: "talent-3-v1",
-        title: "Version pour poste technique",
-        content: `Prépare un guide d'entretien pour un poste de [INTITULÉ DU POSTE TECHNIQUE] avec un focus particulier sur l'évaluation des compétences techniques et la capacité à résoudre des problèmes complexes. Inclus des questions techniques spécifiques et un exercice de code ou de résolution de problème.`,
+        id: "technical-interview",
+        title: "Entretien technique",
+        description: "Version spécifique pour les entretiens techniques en informatique",
+        content: `En tant que recruteur technique, aide-moi à préparer un guide d'entretien technique pour le poste suivant :
+
+Intitulé du poste : [POSTE TECHNIQUE]
+Niveau d'expérience requis : [NIVEAU]
+Technologies principales : [TECHNOLOGIES]
+Méthodologies de développement : [MÉTHODOLOGIES]
+Contexte du projet/équipe : [CONTEXTE]
+
+Génère un guide d'entretien technique structuré qui comprend :
+
+1. Une brève introduction pour présenter l'équipe technique et les projets
+2. 5 questions techniques de base pour vérifier les connaissances fondamentales
+3. 3 problèmes de codage ou d'architecture à résoudre (avec différents niveaux de difficulté)
+4. 2 questions sur des expériences passées de résolution de problèmes techniques
+5. 3 questions sur la collaboration technique et le travail en équipe
+6. 2 questions sur l'apprentissage continu et la veille technologique
+
+Pour chaque question ou problème, inclus :
+- L'énoncé précis
+- Ce que tu cherches à évaluer comme compétence
+- Des critères d'évaluation des réponses (débutant/intermédiaire/avancé)
+- Des indices à donner si le candidat est bloqué
+- Des questions d'approfondissement pour les candidats plus expérimentés
+
+Termine par une section sur la façon d'évaluer globalement les compétences techniques du candidat.`,
       },
     ],
   },
 ]
+
+export default talentManagementPrompts
