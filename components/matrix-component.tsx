@@ -1,87 +1,43 @@
-import Link from "next/link"
-
-interface MatrixQuadrantProps {
-  id: string
-  title: string
-  description: string
-  link?: string
-}
-
-interface MatrixComponentProps {
-  title?: string
-  xAxisLabel?: string
-  yAxisLabel?: string
-  topLeft?: MatrixQuadrantProps
-  topRight?: MatrixQuadrantProps
-  bottomLeft?: MatrixQuadrantProps
-  bottomRight?: MatrixQuadrantProps
-}
-
 export const MatrixComponent = ({
   title = "Matrice",
   xAxisLabel = "Axe X",
   yAxisLabel = "Axe Y",
-  topLeft = {
-    id: "top-left",
-    title: "Quadrant supérieur gauche",
-    description: "Description du quadrant supérieur gauche",
-  },
-  topRight = {
-    id: "top-right",
-    title: "Quadrant supérieur droit",
-    description: "Description du quadrant supérieur droit",
-  },
-  bottomLeft = {
-    id: "bottom-left",
-    title: "Quadrant inférieur gauche",
-    description: "Description du quadrant inférieur gauche",
-  },
-  bottomRight = {
-    id: "bottom-right",
-    title: "Quadrant inférieur droit",
-    description: "Description du quadrant inférieur droit",
-  },
-}: MatrixComponentProps) => {
-  const renderQuadrant = (quadrant: MatrixQuadrantProps) => {
-    const content = (
-      <div className="p-4 h-full">
-        <h3 className="font-bold text-lg mb-2">{quadrant.title}</h3>
-        <p className="text-sm text-gray-600">{quadrant.description}</p>
-      </div>
-    )
-
-    if (quadrant.link) {
-      return (
-        <Link href={quadrant.link} className="block h-full hover:bg-gray-50 transition-colors">
-          {content}
-        </Link>
-      )
-    }
-
-    return content
-  }
-
+  topLeft = { title: "Haut Gauche", description: "Description", link: "" },
+  topRight = { title: "Haut Droite", description: "Description", link: "" },
+  bottomLeft = { title: "Bas Gauche", description: "Description", link: "" },
+  bottomRight = { title: "Bas Droite", description: "Description", link: "" },
+}) => {
   return (
     <div className="w-full max-w-4xl mx-auto mb-12">
-      {title && <h2 className="text-xl font-bold mb-6 text-center">{title}</h2>}
+      <h2 className="text-xl font-bold mb-6 text-center">{title}</h2>
 
       <div className="relative">
-        {/* Y-axis label */}
         <div className="absolute -left-10 top-1/2 -translate-y-1/2 -rotate-90 font-medium text-gray-500">
           {yAxisLabel}
         </div>
 
-        <div className="grid grid-cols-2 border border-gray-300 rounded-lg overflow-hidden">
-          {/* Top row */}
-          <div className="border-b border-r border-gray-300 min-h-[200px]">{renderQuadrant(topLeft)}</div>
-          <div className="border-b border-gray-300 min-h-[200px]">{renderQuadrant(topRight)}</div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="bg-blue-100 p-4 rounded-lg">
+            <h3 className="font-bold">{topLeft.title}</h3>
+            <p className="text-sm">{topLeft.description}</p>
+          </div>
 
-          {/* Bottom row */}
-          <div className="border-r border-gray-300 min-h-[200px]">{renderQuadrant(bottomLeft)}</div>
-          <div className="min-h-[200px]">{renderQuadrant(bottomRight)}</div>
+          <div className="bg-green-100 p-4 rounded-lg">
+            <h3 className="font-bold">{topRight.title}</h3>
+            <p className="text-sm">{topRight.description}</p>
+          </div>
+
+          <div className="bg-yellow-100 p-4 rounded-lg">
+            <h3 className="font-bold">{bottomLeft.title}</h3>
+            <p className="text-sm">{bottomLeft.description}</p>
+          </div>
+
+          <div className="bg-red-100 p-4 rounded-lg">
+            <h3 className="font-bold">{bottomRight.title}</h3>
+            <p className="text-sm">{bottomRight.description}</p>
+          </div>
         </div>
 
-        {/* X-axis label */}
         <div className="text-center mt-4 font-medium text-gray-500">{xAxisLabel}</div>
       </div>
     </div>
