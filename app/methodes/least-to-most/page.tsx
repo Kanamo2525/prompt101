@@ -1,6 +1,15 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { CheckCircle, XCircle, Lightbulb, ChevronRight, ChevronLeft } from "lucide-react"
+import {
+  CheckCircle,
+  XCircle,
+  ChevronRight,
+  ChevronLeft,
+  LineChartIcon,
+  NetworkIcon,
+  ScaleIcon,
+  Lightbulb,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
@@ -365,7 +374,7 @@ export default function LeastToMostPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
-                <ChartLineUp className="h-5 w-5" />
+                <LineChartIcon className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold text-blue-700">Analyse stratégique approfondie</h3>
             </div>
@@ -396,7 +405,7 @@ export default function LeastToMostPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
-                <Network className="h-5 w-5" />
+                <NetworkIcon className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold text-blue-700">Gestion de transformation organisationnelle</h3>
             </div>
@@ -427,7 +436,7 @@ export default function LeastToMostPage() {
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3">
-                <Scale className="h-5 w-5" />
+                <ScaleIcon className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold text-blue-700">Évaluation d&apos;impact réglementaire</h3>
             </div>
@@ -559,73 +568,6 @@ function ChevronDown(props) {
       strokeLinejoin="round"
     >
       <path d="m6 9 6 6 6-6" />
-    </svg>
-  )
-}
-
-function ChartLineUp(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 3v18h18" />
-      <path d="m19 9-5 5-4-4-3 3" />
-      <path d="M14 9h5v5" />
-    </svg>
-  )
-}
-
-function Network(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="16" y="16" width="6" height="6" rx="1" />
-      <rect x="2" y="16" width="6" height="6" rx="1" />
-      <rect x="9" y="2" width="6" height="6" rx="1" />
-      <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
-      <path d="M12 12V8" />
-    </svg>
-  )
-}
-
-function Scale(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-      <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-      <path d="M7 21h10" />
-      <path d="M12 3v18" />
-      <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
     </svg>
   )
 }

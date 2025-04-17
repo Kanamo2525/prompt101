@@ -1,290 +1,240 @@
 import Link from "next/link"
-import { Search, Brain, BookOpen, Clock, Heart } from "lucide-react"
+import { ArrowRight, BookOpen, Code, FileText, Lightbulb } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import MatrixComponent from "@/components/matrix-component"
-// Ajouter l'import du composant PDFDownloadButton
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { PDFDownloadButton } from "@/components/pdf-download-button"
 
-export default function HomePage() {
-  // Hardcoded categories for the homepage to avoid database issues
-  const categories = [
-    {
-      id: "personal-development",
-      title: "Développement personnel",
-      icon: <Brain className="w-5 h-5 text-purple-600" />,
-      color: "border-purple-600",
-      description:
-        "Prompts pour analyser vos finances, surmonter des défis, fixer des objectifs personnels et développer vos compétences.",
-      promptCount: 17,
-    },
-    {
-      id: "education",
-      title: "Éducation",
-      icon: <BookOpen className="w-5 h-5 text-blue-600" />,
-      color: "border-blue-600",
-      description:
-        "Prompts pour améliorer vos stratégies d'apprentissage, analyser vos besoins éducatifs et planifier vos études efficacement.",
-      promptCount: 15,
-    },
-    {
-      id: "time-management",
-      title: "Gestion du temps",
-      icon: <Clock className="w-5 h-5 text-green-600" />,
-      color: "border-green-600",
-      description:
-        "Prompts pour optimiser vos routines quotidiennes, automatiser les tâches répétitives et améliorer votre productivité.",
-      promptCount: 15,
-    },
-    {
-      id: "healthy-lifestyle",
-      title: "Mode de vie sain",
-      icon: <Heart className="w-5 h-5 text-red-600" />,
-      color: "border-red-600",
-      description:
-        "Prompts pour créer des plans de remise en forme, recommander des plans de repas sains et améliorer votre bien-être général.",
-      promptCount: 17,
-    },
-  ]
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Optimisez votre utilisation de l'IA générative</h1>
-            <p className="text-xl mb-8">
-              Découvrez notre catalogue de prompts spécialisés et transformez votre approche de l'intelligence
-              artificielle.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                <Link href="/catalogue">Explorer le catalogue</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="bg-transparent text-white border-white hover:bg-white/10"
-              >
-                <Link href="/methodes">Apprendre le prompting</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Search Section */}
-      <section className="bg-white shadow-sm py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="relative rounded-md shadow-sm">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <Input
-                type="text"
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Rechercher un prompt par mot-clé, catégorie ou difficulté..."
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Opportunity Matrix Section */}
-      <section className="py-12 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Matrice d'opportunité de l'IA générative</h2>
-          <p className="text-gray-600 mb-8 max-w-3xl">
-            Découvrez comment l'IA générative peut être utilisée dans différents contextes, de l'automatisation à
-            l'exploration créative. Cette matrice vous aide à identifier les meilleures opportunités selon vos besoins.
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      <div className="container mx-auto px-4 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4">Guide des Prompts IA</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence
+            artificielle générative.
           </p>
-          <div className="bg-white rounded-xl shadow-md overflow-hidden p-6">
-            <MatrixComponent />
-          </div>
-          <div className="mt-8 text-center">
-            <Button asChild variant="outline">
-              <Link href="/methodes">En savoir plus sur les méthodes de prompting</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Thématiques de prompts</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
-            {categories.map((category) => (
-              <Link key={category.id} href={`/categories/${category.id}`} className="block h-full">
-                <div className={`h-full rounded-xl shadow-md overflow-hidden border-l-4 ${category.color}`}>
-                  <div className="bg-white p-5 h-full flex flex-col">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className={`p-2 rounded-lg bg-${category.color.split("-")[1]}-100`}>{category.icon}</div>
-                        <h3 className="font-bold text-lg text-gray-800">{category.title}</h3>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-sm text-gray-500">{category.promptCount} prompts</span>
-                      </div>
-                    </div>
-                    <p className="mt-2 text-gray-600 text-sm flex-grow">{category.description}</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">#ia</span>
-                      <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">#prompts</span>
-                      <span className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">#template</span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="mt-8 text-center">
-            <Button asChild variant="outline">
-              <Link href="/catalogue">Voir toutes les thématiques</Link>
-            </Button>
+          <div className="mt-6 flex flex-wrap justify-center gap-4">
+            <Link href="/methodes">
+              <Button size="lg">
+                Explorer les méthodes <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link href="/catalogue">
+              <Button variant="outline" size="lg">
+                Voir le catalogue
+              </Button>
+            </Link>
+            <PDFDownloadButton size="lg" />
           </div>
         </div>
-      </section>
 
-      {/* Popular Prompts Section */}
-      <section className="py-12 bg-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Prompts les plus utilisés</h2>
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">Techniques de prompting populaires</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Hardcoded popular prompts */}
-            <Link href="/categories/personal-development/financial-analysis">
-              <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-purple-600 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center">
-                    <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                      <Brain className="w-5 h-5 text-purple-600" />
-                    </div>
-                    <span className="text-sm font-medium">Développement personnel</span>
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="p-2 rounded-lg bg-yellow-100">
+                    <Lightbulb className="h-5 w-5 text-yellow-500" />
                   </div>
-                  <div className="flex">
-                    <Search className="w-4 h-4 text-yellow-400" />
-                  </div>
+                  <CardTitle>Zero-Shot Prompting</CardTitle>
                 </div>
-                <p className="text-gray-800">Analyser vos finances personnelles</p>
+                <CardDescription>Demander directement sans exemple</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Cette technique consiste à formuler une instruction claire sans fournir d'exemple. Elle est idéale
+                  pour des tâches simples et bien définies.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href="/methodes/zero-shot" className="ml-auto">
+                  <Button variant="ghost" size="sm">
+                    En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="p-2 rounded-lg bg-blue-100">
+                    <BookOpen className="h-5 w-5 text-blue-500" />
+                  </div>
+                  <CardTitle>Few-Shot Prompting</CardTitle>
+                </div>
+                <CardDescription>Fournir plusieurs exemples</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Cette méthode consiste à donner plusieurs exemples pour aider le modèle à comprendre le format et le
+                  style de réponse attendus.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href="/methodes/few-shot" className="ml-auto">
+                  <Button variant="ghost" size="sm">
+                    En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            <Card className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="p-2 rounded-lg bg-purple-100">
+                    <Code className="h-5 w-5 text-purple-500" />
+                  </div>
+                  <CardTitle>Chain-of-Thought</CardTitle>
+                </div>
+                <CardDescription>Raisonnement étape par étape</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Cette technique encourage le modèle à décomposer son raisonnement en étapes logiques, ce qui améliore
+                  la précision pour les problèmes complexes.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href="/methodes/chain-of-thought" className="ml-auto">
+                  <Button variant="ghost" size="sm">
+                    En savoir plus <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
+
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold mb-6 text-center">Catégories de prompts</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Link href="/categories/personal-development" className="block">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-600 hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="p-2 rounded-lg bg-blue-100">⭐</div>
+                  <h3 className="font-bold text-lg">Développement personnel</h3>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  Prompts pour vous aider à progresser dans votre vie personnelle et professionnelle.
+                </p>
               </div>
             </Link>
 
-            <Link href="/categories/education/learning-strategies">
-              <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-blue-600 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center">
-                    <div className="bg-blue-100 p-2 rounded-lg mr-3">
-                      <BookOpen className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <span className="text-sm font-medium">Éducation</span>
-                  </div>
-                  <div className="flex">
-                    <Search className="w-4 h-4 text-yellow-400" />
-                    <Search className="w-4 h-4 text-yellow-400" />
-                  </div>
+            <Link href="/categories/education" className="block">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-600 hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="p-2 rounded-lg bg-green-100">📚</div>
+                  <h3 className="font-bold text-lg">Éducation</h3>
                 </div>
-                <p className="text-gray-800">Recommander des stratégies d'apprentissage</p>
+                <p className="text-gray-600 text-sm">
+                  Prompts pour améliorer votre apprentissage et développer de nouvelles compétences.
+                </p>
               </div>
             </Link>
 
-            <Link href="/categories/healthy-lifestyle/fitness-program">
-              <div className="bg-white p-5 rounded-xl shadow-sm border-l-4 border-red-600 hover:shadow-md transition-shadow">
-                <div className="flex justify-between items-start mb-3">
-                  <div className="flex items-center">
-                    <div className="bg-red-100 p-2 rounded-lg mr-3">
-                      <Heart className="w-5 h-5 text-red-600" />
-                    </div>
-                    <span className="text-sm font-medium">Mode de vie sain</span>
-                  </div>
-                  <div className="flex">
-                    <Search className="w-4 h-4 text-yellow-400" />
-                    <Search className="w-4 h-4 text-yellow-400" />
-                    <Search className="w-4 h-4 text-yellow-400" />
-                  </div>
+            <Link href="/categories/time-management" className="block">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-600 hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="p-2 rounded-lg bg-purple-100">⏰</div>
+                  <h3 className="font-bold text-lg">Gestion du temps</h3>
                 </div>
-                <p className="text-gray-800">Créer un plan de remise en forme personnalisé</p>
+                <p className="text-gray-600 text-sm">
+                  Prompts pour optimiser votre temps et augmenter votre productivité au quotidien.
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/categories/healthy-lifestyle" className="block">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-amber-600 hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="p-2 rounded-lg bg-amber-100">💪</div>
+                  <h3 className="font-bold text-lg">Mode de vie sain</h3>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  Prompts pour améliorer votre santé physique et mentale au quotidien.
+                </p>
               </div>
             </Link>
           </div>
-          <div className="mt-8 text-center">
-            <Button asChild variant="outline">
-              <Link href="/catalogue">Explorer tous les prompts</Link>
+        </div>
+
+        <div className="text-center mb-16">
+          <h2 className="text-2xl font-bold mb-4">Créez vos propres prompts</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+            Utilisez notre canevas interactif pour créer des prompts personnalisés adaptés à vos besoins spécifiques.
+          </p>
+          <Link href="/canevas">
+            <Button>
+              Accéder au canevas <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-          </div>
+          </Link>
         </div>
-      </section>
-      {/* Ajouter le bouton de téléchargement dans une section appropriée */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mt-8 flex justify-center">
-            <PDFDownloadButton
-              pdfUrl="/pdf/guide-prompting.pdf"
-              fileName="Guide-Art-du-Prompting.pdf"
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium"
-            />
-          </div>
-        </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Next-ai.fr</h3>
-              <p className="text-gray-400">Optimisez votre utilisation de l'intelligence artificielle générative</p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Ressources</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/catalogue" className="text-gray-400 hover:text-white">
-                    Catalogue
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/methodes" className="text-gray-400 hover:text-white">
-                    Méthodes de prompting
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Contribuer</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/proposer" className="text-gray-400 hover:text-white">
-                    Proposer un prompt
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider mb-4">Légal</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/mentions-legales" className="text-gray-400 hover:text-white">
-                    Mentions légales
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/confidentialite" className="text-gray-400 hover:text-white">
-                    Politique de confidentialité
-                  </Link>
-                </li>
-              </ul>
-            </div>
+        <div className="bg-white rounded-xl shadow-sm p-8 mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2">Ressources supplémentaires</h2>
+            <p className="text-gray-600">Découvrez nos guides et outils pour maîtriser l'art du prompting.</p>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-            <p>© 2025 Next-ai.fr. Guide des prompts pour l'IA générative.</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Guide complet</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Téléchargez notre guide complet du prompting pour les modèles d'IA générative.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <PDFDownloadButton />
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Catalogue de prompts</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Explorez notre collection de prompts prêts à l'emploi pour différents cas d'usage.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href="/catalogue">
+                  <Button variant="outline">
+                    Voir le catalogue <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Proposer un prompt</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Partagez vos prompts efficaces avec la communauté et contribuez à enrichir notre base de
+                  connaissances.
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link href="/proposer">
+                  <Button variant="outline">
+                    Proposer un prompt <FileText className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   )
 }
