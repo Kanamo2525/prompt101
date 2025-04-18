@@ -9,8 +9,34 @@ import { Footer } from "@/components/footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Next-AI.fr | Guide des Prompts IA",
-  description: "Plateforme pédagogique pour l'apprentissage des techniques de prompts",
+  title: "Prompt101.fr | Guide des Prompts IA",
+  description:
+    "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
+  openGraph: {
+    title: "Prompt101.fr | Guide des Prompts IA",
+    description:
+      "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
+    images: [
+      {
+        url: "/images/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Prompt101.fr - Guide des Prompts IA",
+      },
+    ],
+    locale: "fr_FR",
+    type: "website",
+    siteName: "Prompt101.fr",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prompt101.fr | Guide des Prompts IA",
+    description:
+      "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
+    images: ["/images/opengraph-image.png"],
+    creator: "@prompt101fr",
+  },
+  metadataBase: new URL("https://prompt101.fr"),
     generator: 'v0.dev'
 }
 
