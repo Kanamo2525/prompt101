@@ -2,89 +2,90 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Book, BookOpen, Home, Menu, PenTool, X } from "lucide-react"
-import { useState } from "react"
-
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 export function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const navItems = [
-    { name: "Accueil", href: "/", icon: <Home className="h-5 w-5 mr-2" /> },
-    { name: "Méthodes", href: "/methodes", icon: <BookOpen className="h-5 w-5 mr-2" /> },
-    { name: "Catalogue", href: "/catalogue", icon: <Book className="h-5 w-5 mr-2" /> },
-    { name: "Canevas", href: "/canevas", icon: <PenTool className="h-5 w-5 mr-2" /> },
+  const routes = [
+    {
+      href: "/",
+      label: "Accueil",
+      active: pathname === "/",
+    },
+    {
+      href: "/methodes",
+      label: "Méthodes",
+      active: pathname === "/methodes" || pathname.startsWith("/methodes/"),
+    },
+    {
+      href: "/catalogue",
+      label: "Catalogue",
+      active: pathname === "/catalogue",
+    },
+    {
+      href: "/canevas",
+      label: "Canevas",
+      active: pathname === "/canevas",
+    },
+    {
+      href: "/proposer",
+      label: "Proposer un prompt",
+      active: pathname === "/proposer",
+    },
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="border-b bg-background">
       <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold">Next-AI.fr</span>
+            <span className="font-bold text-xl">prompt101.fr</span>
           </Link>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center text-sm font-medium transition-colors hover:text-primary ${
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Button asChild className="hidden md:flex">
-            <Link href="/proposer">Proposer un prompt</Link>
-          </Button>
-
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMenu}>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="container py-4 space-y-4">
-            {navItems.map((item) => (
+          <nav className="hidden md:flex gap-6">
+            {routes.map((route) => (
               <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center text-sm font-medium transition-colors hover:text-primary ${
-                  pathname === item.href ? "text-primary" : "text-muted-foreground"
+                key={route.href}
+                href={route.href}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  route.active ? "text-foreground" : "text-muted-foreground"
                 }`}
-                onClick={() => setIsMenuOpen(false)}
               >
-                {item.icon}
-                {item.name}
+                {route.label}
               </Link>
             ))}
-            <Button asChild className="w-full mt-4">
-              <Link href="/proposer" onClick={() => setIsMenuOpen(false)}>
-                Proposer un prompt
-              </Link>
-            </Button>
-          </div>
+          </nav>
         </div>
-      )}
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Toggle Menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-4 mt-8">
+                {routes.map((route) => (
+                  <Link
+                    key={route.href}
+                    href={route.href}
+                    className={`text-sm font-medium transition-colors hover:text-primary ${
+                      route.active ? "text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    {route.label}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
     </header>
   )
 }
