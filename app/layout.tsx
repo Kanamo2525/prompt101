@@ -1,31 +1,32 @@
-import type { ReactNode } from "react"
+import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import GlassmorphicMenu from "@/components/glassmorphic-menu"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Next-ai.fr - Plateforme de prompts IA",
-  description: "Découvrez des prompts optimisés pour l'IA générative",
+  title: "Next-AI.fr | Guide des Prompts IA",
+  description: "Plateforme pédagogique pour l'apprentissage des techniques de prompts",
     generator: 'v0.dev'
 }
 
 export default function RootLayout({
   children,
-}: {
-  children: ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
-    <html lang="fr">
+    <html lang="fr" suppressHydrationWarning>
       <body className={inter.className}>
-        <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
-          {children}
-          <GlassmorphicMenu />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <Navbar />
+          <main>{children}</main>
           <Footer />
-        </main>
+        </ThemeProvider>
       </body>
     </html>
   )

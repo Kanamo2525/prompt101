@@ -1,49 +1,53 @@
-import Image from "next/image"
 import Link from "next/link"
 import { Github, Linkedin } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-gray-200 bg-white py-6">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex flex-col md:flex-row items-center gap-4">
-            <span className="font-medium text-gray-700">Kristy An</span>
-            <div className="flex items-center gap-3">
-              <Link
-                href="https://github.com/Kanamo2525"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github size={20} />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/kanamo/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={20} />
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600">Licence:</span>
-            <Link
-              href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-              aria-label="Licence CC BY-NC-ND"
-            >
-              <Image src="/images/by-nc-nd.png" alt="CC BY-NC-ND" width={88} height={31} />
-              <span className="text-sm text-gray-600">CC BY-NC-ND</span>
-            </Link>
-          </div>
+    <footer className="border-t bg-background">
+      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            &copy; {new Date().getFullYear()} Next-AI.fr. Tous droits réservés.
+            <br className="md:hidden" />
+            <span className="md:ml-1">Par Kristy Anamoutou</span>
+            <span className="mx-1 hidden md:inline">•</span>
+            <span className="flex items-center gap-1 md:inline-flex">
+              <Image
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/by-nc-nd-EPX4LonDe6vspEk3PX5lqJKcx0KHJm.png"
+                alt="Licence Creative Commons BY-NC-ND"
+                width={80}
+                height={28}
+                className="inline-block"
+              />
+            </span>
+          </p>
+        </div>
+        <div className="flex items-center gap-4">
+          <Link href="/mentions-legales" className="text-sm text-muted-foreground hover:text-foreground">
+            Mentions légales
+          </Link>
+          <Link href="/confidentialite" className="text-sm text-muted-foreground hover:text-foreground">
+            Politique de confidentialité
+          </Link>
+          <Link
+            href="https://github.com/Kanamo2525"
+            target="_blank"
+            rel="noreferrer"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <Github className="h-5 w-5" />
+            <span className="sr-only">GitHub</span>
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/kanamo/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-muted-foreground hover:text-foreground"
+          >
+            <Linkedin className="h-5 w-5" />
+            <span className="sr-only">LinkedIn</span>
+          </Link>
         </div>
       </div>
     </footer>
