@@ -415,7 +415,7 @@ export default function CanevasPage() {
                 <Textarea
                   value={frictionPoint}
                   onChange={(e) => setFrictionPoint(e.target.value)}
-                  placeholder="Décrivez le point de friction RH que vous souhaitez résoudre avec l'IA..."
+                  placeholder="Décrivez le point de friction que vous souhaitez résoudre avec l'IA..."
                   className="min-h-[100px]"
                 />
               </div>
