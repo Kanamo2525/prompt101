@@ -20,7 +20,7 @@ export default function MentionsLegalesPage() {
           <br />
           <strong>Email :</strong> contact@prompt101.fr
           <br />
-          <strong>SIRET :</strong> 
+          <strong>SIRET :</strong>
         </p>
       </section>
 

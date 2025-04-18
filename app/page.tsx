@@ -113,23 +113,35 @@ export default function Home() {
         <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6 text-center">Catégories de prompts</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/categories/personal-development" className="block">
+            <Link href="/catalogue/productivite" className="block">
               <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-600 hover:shadow-md transition-shadow h-full">
                 <div className="flex items-center space-x-3 mb-3">
-                  <div className="p-2 rounded-lg bg-blue-100">⭐</div>
-                  <h3 className="font-bold text-lg">Développement personnel</h3>
+                  <div className="p-2 rounded-lg bg-blue-100">⚡</div>
+                  <h3 className="font-bold text-lg">Productivité</h3>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  Prompts pour vous aider à progresser dans votre vie personnelle et professionnelle.
+                  Prompts pour optimiser votre temps et augmenter votre efficacité au quotidien.
                 </p>
               </div>
             </Link>
 
-            <Link href="/categories/education" className="block">
+            <Link href="/catalogue/creativite" className="block">
               <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-600 hover:shadow-md transition-shadow h-full">
                 <div className="flex items-center space-x-3 mb-3">
-                  <div className="p-2 rounded-lg bg-green-100">📚</div>
-                  <h3 className="font-bold text-lg">Éducation</h3>
+                  <div className="p-2 rounded-lg bg-green-100">💡</div>
+                  <h3 className="font-bold text-lg">Créativité</h3>
+                </div>
+                <p className="text-gray-600 text-sm">
+                  Prompts pour stimuler votre créativité et générer des idées innovantes.
+                </p>
+              </div>
+            </Link>
+
+            <Link href="/catalogue/apprentissage" className="block">
+              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-600 hover:shadow-md transition-shadow h-full">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="p-2 rounded-lg bg-purple-100">📚</div>
+                  <h3 className="font-bold text-lg">Apprentissage</h3>
                 </div>
                 <p className="text-gray-600 text-sm">
                   Prompts pour améliorer votre apprentissage et développer de nouvelles compétences.
@@ -137,26 +149,14 @@ export default function Home() {
               </div>
             </Link>
 
-            <Link href="/categories/time-management" className="block">
-              <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-purple-600 hover:shadow-md transition-shadow h-full">
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="p-2 rounded-lg bg-purple-100">⏰</div>
-                  <h3 className="font-bold text-lg">Gestion du temps</h3>
-                </div>
-                <p className="text-gray-600 text-sm">
-                  Prompts pour optimiser votre temps et augmenter votre productivité au quotidien.
-                </p>
-              </div>
-            </Link>
-
-            <Link href="/categories/healthy-lifestyle" className="block">
+            <Link href="/catalogue/professionnel" className="block">
               <div className="bg-white rounded-xl shadow-sm p-6 border-l-4 border-amber-600 hover:shadow-md transition-shadow h-full">
                 <div className="flex items-center space-x-3 mb-3">
-                  <div className="p-2 rounded-lg bg-amber-100">💪</div>
-                  <h3 className="font-bold text-lg">Mode de vie sain</h3>
+                  <div className="p-2 rounded-lg bg-amber-100">💼</div>
+                  <h3 className="font-bold text-lg">Professionnel</h3>
                 </div>
                 <p className="text-gray-600 text-sm">
-                  Prompts pour améliorer votre santé physique et mentale au quotidien.
+                  Prompts pour améliorer votre efficacité et vos compétences dans un contexte professionnel.
                 </p>
               </div>
             </Link>
