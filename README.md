@@ -1,24 +1,26 @@
 # Promp101.fr
 
 
+# 🚀 NOUVEAU : Prompt101.fr - Votre référentiel stratégique de compétences en prompt engineering
 
+📣 Heureuse de partager avec la communauté professionnelle le lancement de **Prompt101.fr** - une plateforme d'ingénierie de prompts entièrement **gratuite** et sous licence Creative Commons pour accélérer votre maîtrise des interactions avec l'IA générative.
 
+Dans un écosystème professionnel en pleine mutation digitale, l'acquisition de compétences en prompt engineering devient un différenciateur stratégique crucial. Ce n'est plus optionnel, mais fondamental pour tout professionnel cherchant à maintenir sa pertinence opérationnelle.
 
-## Deployment
+## ✨ Ce que vous y trouverez :
 
-Your project is live at:
+• 📚 **11 fiches techniques détaillées** - Zero-Shot, Few-Shot, Chain-of-Thought et autres méthodologies expliquées avec cas d'usage concrets
 
-**[https://vercel.com/kanamo2525s-projects/v0-next-ai-fr](https://vercel.com/kanamo2525s-projects/v0-next-ai-fr)**
+• 🌳 **Arbre de décision interactif** - Identifiez immédiatement la technique optimale pour votre contexte spécifique
 
-## Build your app
+• 📝 **Canevas d'élaboration structuré** - Créez des prompts haute performance en quelques minutes, sans partir d'une page blanche
 
-Continue building your app on:
+Aucune inscription requise, aucun coût caché - exploitez immédiatement ces ressources pour transformer vos interactions avec l'IA en leviers de performance organisationnelle.
 
-**[https://v0.dev/chat/projects/1PngjD6qpEv](https://v0.dev/chat/projects/1PngjD6qpEv)**
+Cette initiative s'inscrit dans une approche d'intelligence collective : plus nous partageons nos connaissances et pratiques, plus nous créons collectivement la valeur qui transcende les usages conventionnels de ces technologies.
 
-## How It Works
+🔗 Explorez dès maintenant : [prompt101.fr](https://prompt101.fr)
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Partagez vos retours pour enrichir cette ressource communautaire - car c'est ensemble que nous développerons les compétences numériques critiques de demain.
+
+#PromptEngineering #CompétencesNumériques #TransformationDigitale #DéveloppementProfessionnel #IntelligenceCollective #IA
