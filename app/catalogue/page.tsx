@@ -186,7 +186,7 @@ export default function CataloguePage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-600 mb-4">
-              Réalise une analyse SWOT complète pour [projet/entreprise/idée]. Identifie les forces, faiblesses,
+              Réalise une analyse SWOT complète pour un projet ou une entreprise. Identifie les forces, faiblesses,
               opportunités et menaces de manière détaillée.
             </p>
             <div className="flex flex-wrap gap-2">
