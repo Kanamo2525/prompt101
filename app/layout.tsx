@@ -5,15 +5,22 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { WebsiteJsonLd } from "@/components/json-ld"
 
 const inter = Inter({ subsets: ["latin"] })
 
+// Remplacer la section metadata par celle-ci pour améliorer le SEO
 export const metadata: Metadata = {
-  title: "Prompt101.fr | Guide des Prompts IA",
+  title: "Prompt101.fr | Guide des Prompts IA en Français",
   description:
-    "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
+    "Découvrez comment formuler des prompts efficaces pour ChatGPT, Gemini et autres IA génératives. Techniques, exemples et conseils pour maîtriser l'art du prompting.",
+  keywords:
+    "prompt engineering, IA générative, ChatGPT, prompts efficaces, intelligence artificielle, guide prompting, techniques IA, prompt101",
+  authors: [{ name: "Kristy Anamoutou" }],
+  creator: "Kristy Anamoutou",
+  publisher: "prompt101.fr",
   openGraph: {
-    title: "Prompt101.fr | Guide des Prompts IA",
+    title: "Prompt101.fr | Guide des Prompts IA en Français",
     description:
       "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
     images: [
@@ -30,13 +37,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prompt101.fr | Guide des Prompts IA",
+    title: "Prompt101.fr | Guide des Prompts IA en Français",
     description:
       "Découvrez comment formuler des prompts efficaces pour tirer le meilleur parti des modèles d'intelligence artificielle générative.",
     images: ["/images/opengraph-image.png"],
     creator: "@prompt101fr",
   },
   metadataBase: new URL("https://prompt101.fr"),
+  alternates: {
+    canonical: "https://prompt101.fr",
+  },
     generator: 'v0.dev'
 }
 
@@ -47,6 +57,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" suppressHydrationWarning>
+      <head>
+        <WebsiteJsonLd />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Navbar />

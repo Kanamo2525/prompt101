@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://prompt101.fr/sitemap.xml
+
+# Interdire l'accès à certains dossiers si nécessaire
+# Disallow: /admin/
