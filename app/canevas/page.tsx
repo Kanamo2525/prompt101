@@ -369,25 +369,25 @@ export default function CanevasPage() {
   const [selectedExampleTab, setSelectedExampleTab] = useState<PromptTechnique>("zero-shot")
 
   const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { id: "task", label: "Task", description: "Que voulez-vous exactement ?", content: "", selected: false },
+    { id: "task", label: "Tâche", description: "Que voulez-vous exactement ?", content: "", selected: false },
     {
       id: "context",
-      label: "Context",
+      label: "Contexte",
       description: "Quel est le contexte spécifique ?",
       content: "",
       selected: false,
     },
-    { id: "steps", label: "Steps", description: "Quelles étapes doit suivre l'IA ?", content: "", selected: false },
+    { id: "steps", label: "Étapes", description: "Quelles étapes doit suivre l'IA ?", content: "", selected: false },
     {
       id: "specifications",
-      label: "Specifications",
+      label: "Spécifications",
       description: "Quelles sont vos contraintes/règles ?",
       content: "",
       selected: false,
     },
     {
       id: "examples",
-      label: "Examples",
+      label: "Exemples",
       description: "Avez-vous un exemple à fournir ?",
       content: "",
       selected: false,
@@ -395,7 +395,7 @@ export default function CanevasPage() {
     { id: "persona", label: "Persona", description: "Quel rôle doit adopter l'IA ?", content: "", selected: false },
     {
       id: "inputs",
-      label: "Inputs",
+      label: "Données",
       description: "Quelles infos complémentaires seront nécessaires ?",
       content: "",
       selected: false,
@@ -424,30 +424,46 @@ export default function CanevasPage() {
     }
   }, [promptTechnique])
 
-  // Update draft prompt when relevant fields change
-  useEffect(() => {
-    if (promptTechnique) {
-      setDraftPrompt(examplePrompts[promptTechnique](ingredients))
-    }
-  }, [promptTechnique, ingredients])
+  // Modifions la fonction toggleIngredient pour mettre à jour correctement le prompt
+  // Remplacer la fonction toggleIngredient actuelle par celle-ci:
 
-  // Handle ingredient selection
   const toggleIngredient = (id: Ingredient["id"]) => {
     const updatedIngredients = ingredients.map((ingredient) =>
       ingredient.id === id ? { ...ingredient, selected: !ingredient.selected } : ingredient,
     )
     setIngredients(updatedIngredients)
 
-    // Mettre à jour immédiatement l'ébauche de prompt
+    // Mettre à jour immédiatement l'ébauche de prompt si une technique est sélectionnée
     if (promptTechnique) {
-      setDraftPrompt(examplePrompts[promptTechnique](updatedIngredients))
+      const newDraftPrompt = examplePrompts[promptTechnique](updatedIngredients)
+      setDraftPrompt(newDraftPrompt)
     }
   }
 
-  // Handle ingredient content change
+  // Modifions également la fonction updateIngredientContent pour mettre à jour en temps réel:
   const updateIngredientContent = (id: Ingredient["id"], content: string) => {
-    setIngredients(ingredients.map((ingredient) => (ingredient.id === id ? { ...ingredient, content } : ingredient)))
+    const updatedIngredients = ingredients.map((ingredient) =>
+      ingredient.id === id ? { ...ingredient, content } : ingredient,
+    )
+    setIngredients(updatedIngredients)
+
+    // Mettre à jour immédiatement l'ébauche de prompt si une technique est sélectionnée
+    if (promptTechnique) {
+      const newDraftPrompt = examplePrompts[promptTechnique](updatedIngredients)
+      setDraftPrompt(newDraftPrompt)
+    }
   }
+
+  // Assurons-nous que l'effet qui met à jour le prompt est correctement configuré
+  // Remplacer l'useEffect actuel par celui-ci:
+
+  // Update draft prompt when relevant fields change
+  useEffect(() => {
+    if (promptTechnique) {
+      const newDraftPrompt = examplePrompts[promptTechnique](ingredients)
+      setDraftPrompt(newDraftPrompt)
+    }
+  }, [promptTechnique, ingredients])
 
   // Copy prompt to clipboard
   const copyToClipboard = () => {
@@ -494,7 +510,10 @@ export default function CanevasPage() {
   // Get current node in decision tree
   const currentNode = decisionTree.find((node) => node.id === currentNodeId)
 
-  // Handle selecting a technique from the decision tree
+  // Assurons-nous que lorsqu'une technique est sélectionnée via l'arbre de décision,
+  // les ingrédients recommandés sont appliqués et le prompt est mis à jour.
+  // Modifions la fonction handleOptionSelect:
+
   const handleOptionSelect = (targetId: string, technique?: PromptTechnique) => {
     // Animation de transition
     const treeContainer = document.querySelector(".animate-scaleIn")
@@ -506,6 +525,17 @@ export default function CanevasPage() {
         setCurrentNodeId(targetId)
         if (technique) {
           setPromptTechnique(technique)
+
+          // Appliquer immédiatement les ingrédients recommandés
+          const recommendedIds = recommendedIngredients[technique] || []
+          const updatedIngredients = ingredients.map((ingredient) => ({
+            ...ingredient,
+            selected: recommendedIds.includes(ingredient.id),
+          }))
+          setIngredients(updatedIngredients)
+
+          // Mettre à jour immédiatement le prompt
+          setDraftPrompt(examplePrompts[technique](updatedIngredients))
 
           // Fermer la modale après un court délai pour permettre à l'utilisateur de voir la recommandation
           setTimeout(() => {
@@ -524,6 +554,18 @@ export default function CanevasPage() {
       setCurrentNodeId(targetId)
       if (technique) {
         setPromptTechnique(technique)
+
+        // Appliquer immédiatement les ingrédients recommandés
+        const recommendedIds = recommendedIngredients[technique] || []
+        const updatedIngredients = ingredients.map((ingredient) => ({
+          ...ingredient,
+          selected: recommendedIds.includes(ingredient.id),
+        }))
+        setIngredients(updatedIngredients)
+
+        // Mettre à jour immédiatement le prompt
+        setDraftPrompt(examplePrompts[technique](updatedIngredients))
+
         setTimeout(() => {
           setIsTreeModalOpen(false)
         }, 1500)
@@ -718,7 +760,18 @@ export default function CanevasPage() {
                         <button
                           key={technique.id}
                           className="text-xs text-left bg-white border border-gray-200 rounded p-2 hover:bg-gray-50"
-                          onClick={() => setPromptTechnique(technique.id as PromptTechnique)}
+                          onClick={() => {
+                            setPromptTechnique(technique.id as PromptTechnique)
+                            // Appliquer immédiatement les ingrédients recommandés
+                            const recommendedIds = recommendedIngredients[technique.id as PromptTechnique] || []
+                            const updatedIngredients = ingredients.map((ingredient) => ({
+                              ...ingredient,
+                              selected: recommendedIds.includes(ingredient.id),
+                            }))
+                            setIngredients(updatedIngredients)
+                            // Mettre à jour immédiatement le prompt
+                            setDraftPrompt(examplePrompts[technique.id as PromptTechnique](updatedIngredients))
+                          }}
                         >
                           {technique.name}
                         </button>
@@ -887,7 +940,10 @@ export default function CanevasPage() {
                 </div>
                 <Textarea
                   value={draftPrompt}
-                  onChange={(e) => setDraftPrompt(e.target.value)}
+                  onChange={(e) => {
+                    // Permettre l'édition manuelle directe sans modifier les ingrédients
+                    setDraftPrompt(e.target.value)
+                  }}
                   placeholder="Vous pouvez modifier ou affiner manuellement votre prompt ici..."
                   className="min-h-[300px]"
                 />
