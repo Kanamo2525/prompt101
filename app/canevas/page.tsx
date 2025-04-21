@@ -306,11 +306,15 @@ export default function CanevasPage() {
 
   // Handle ingredient selection
   const toggleIngredient = (id: Ingredient["id"]) => {
-    setIngredients(
-      ingredients.map((ingredient) =>
-        ingredient.id === id ? { ...ingredient, selected: !ingredient.selected } : ingredient,
-      ),
+    const updatedIngredients = ingredients.map((ingredient) =>
+      ingredient.id === id ? { ...ingredient, selected: !ingredient.selected } : ingredient,
     )
+    setIngredients(updatedIngredients)
+
+    // Mettre à jour immédiatement l'ébauche de prompt
+    if (promptTechnique) {
+      setDraftPrompt(examplePrompts[promptTechnique](updatedIngredients))
+    }
   }
 
   // Handle ingredient content change
@@ -631,10 +635,22 @@ export default function CanevasPage() {
                         </div>
                         <textarea
                           className="w-full p-2 border border-gray-300 rounded focus:ring-purple-500 focus:border-purple-500"
-                          rows={2}
+                          rows={4}
                           placeholder={ingredient.description}
                           value={ingredient.content}
-                          onChange={(e) => updateIngredientContent(ingredient.id, e.target.value)}
+                          onChange={(e) => {
+                            updateIngredientContent(ingredient.id, e.target.value)
+                            // Mettre à jour immédiatement l'ébauche de prompt
+                            if (promptTechnique) {
+                              setDraftPrompt(
+                                examplePrompts[promptTechnique](
+                                  ingredients.map((ing) =>
+                                    ing.id === ingredient.id ? { ...ing, content: e.target.value } : ing,
+                                  ),
+                                ),
+                              )
+                            }
+                          }}
                         />
                       </div>
                     ))}
@@ -673,9 +689,9 @@ export default function CanevasPage() {
                     </Button>
                   </div>
                 </div>
-                <div className="bg-gray-50 p-4 rounded-md min-h-[200px] border whitespace-pre-line">
+                <div className="bg-gray-50 p-4 rounded-md min-h-[300px] max-h-[500px] overflow-y-auto border whitespace-pre-line">
                   {draftPrompt ? (
-                    <p>{draftPrompt}</p>
+                    <p className="break-words">{draftPrompt}</p>
                   ) : (
                     <p className="text-gray-400 italic">
                       L'aperçu du prompt apparaîtra ici une fois que vous aurez sélectionné une technique et complété
@@ -710,7 +726,7 @@ export default function CanevasPage() {
                   value={draftPrompt}
                   onChange={(e) => setDraftPrompt(e.target.value)}
                   placeholder="Vous pouvez modifier ou affiner manuellement votre prompt ici..."
-                  className="min-h-[200px]"
+                  className="min-h-[300px]"
                 />
               </div>
             </CardContent>
@@ -719,7 +735,9 @@ export default function CanevasPage() {
           {/* Actions */}
           <div className="flex justify-between">
             <Button variant="outline">Voir des exemples</Button>
-            <Button className="bg-purple-600 hover:bg-purple-700">Enregistrer ce prompt</Button>
+            <Button className="bg-purple-600 hover:bg-purple-700" onClick={copyToClipboard}>
+              {isCopied ? "Copié ✓" : "Copier"}
+            </Button>
           </div>
 
           {/* Conseils */}

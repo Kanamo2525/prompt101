@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { WebsiteJsonLd } from "@/components/json-ld"
 import GoogleAnalytics from "@/components/google-analytics"
+import AxeptioScript from "@/components/axeptio-script"
 import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -61,6 +62,7 @@ export default function RootLayout({
     <html lang="fr" suppressHydrationWarning>
       <head>
         <WebsiteJsonLd />
+        <AxeptioScript />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
