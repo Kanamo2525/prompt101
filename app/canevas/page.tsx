@@ -368,6 +368,8 @@ export default function CanevasPage() {
   const [isExamplesDialogOpen, setIsExamplesDialogOpen] = useState(false)
   const [selectedExampleTab, setSelectedExampleTab] = useState<PromptTechnique>("zero-shot")
 
+  // Remplacer l'initialisation du state ingredients par cette version avec les labels en français
+
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     { id: "task", label: "Tâche", description: "Que voulez-vous exactement ?", content: "", selected: false },
     {
