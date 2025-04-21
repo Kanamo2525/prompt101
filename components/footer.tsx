@@ -30,6 +30,9 @@ export function Footer() {
           <Link href="/confidentialite" className="text-sm text-muted-foreground hover:text-foreground">
             Politique de confidentialité
           </Link>
+          <Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            Cookies
+          </Link>
           <Link
             href="https://github.com/Kanamo2525"
             target="_blank"

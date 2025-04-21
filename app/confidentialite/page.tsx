@@ -300,7 +300,7 @@ export default function ConfidentialitePage() {
         <p className="mb-4">
           Pour toute question relative à la présente Politique, vous pouvez écrire à :{" "}
           <a href="mailto:contact@prompt101.fr" className="text-primary hover:underline">
-            prompp101fr+contact@gmail.com
+            promp101fr+contact@gmail.com
           </a>
         </p>
       </section>
