@@ -9,9 +9,9 @@ import { Badge } from "@/components/ui/badge"
 // Données des catégories avec le nombre de prompts
 const categories = [
   { name: "Productivité", slug: "productivite", count: 12 },
-  { name: "Créativité", slug: "creativite", count: 8 },
+  { name: "Créativité", slug: "creativite", count: 21 },
   { name: "Apprentissage", slug: "apprentissage", count: 15 },
-  { name: "Leadership", slug: "leadership", count: 10 },
+  { name: "Leadership", slug: "leadership", count: 23 },
 ]
 
 // Données des prompts pour la page d'accueil du catalogue
