@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Loader2, CheckCircle2, ShieldAlert } from "lucide-react"
+import { Loader2, CheckCircle2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -16,7 +16,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import { PromptPreview } from "@/components/prompt-preview"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
-import { useRecaptcha } from "@/components/recaptcha-provider"
 
 const promptCategories = [
   { value: "zero-shot", label: "Zero-Shot Prompting" },
@@ -85,13 +84,6 @@ export function ProposerPromptForm() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [generatedPrompt, setGeneratedPrompt] = useState("")
   const [error, setError] = useState<string | null>(null)
-  const [recaptchaStatus, setRecaptchaStatus] = useState<string>("loading")
-  const { ready: recaptchaReady, executeRecaptcha } = useRecaptcha()
-
-  useEffect(() => {
-    // Mettre à jour le statut de reCAPTCHA lorsqu'il change
-    setRecaptchaStatus(recaptchaReady ? "ready" : "loading")
-  }, [recaptchaReady])
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -164,41 +156,12 @@ export function ProposerPromptForm() {
     setError(null)
 
     try {
-      // Vérifier si reCAPTCHA est prêt
-      if (!recaptchaReady) {
-        console.log("reCAPTCHA not ready, status:", recaptchaStatus)
-        throw new Error("Le système de vérification n'est pas encore prêt. Veuillez réessayer dans quelques instants.")
-      }
-
-      // Exécuter reCAPTCHA
-      console.log("Executing reCAPTCHA...")
-      let recaptchaToken
-      try {
-        recaptchaToken = await executeRecaptcha("submit_prompt")
-
-        // Vérifier si le token existe avant d'utiliser substring
-        if (recaptchaToken && typeof recaptchaToken === "string" && !recaptchaToken.startsWith("recaptcha-")) {
-          console.log("reCAPTCHA token obtained:", recaptchaToken.substring(0, 10) + "...")
-        } else {
-          console.log("reCAPTCHA token is invalid:", recaptchaToken)
-        }
-
-        // Si le token indique une erreur
-        if (!recaptchaToken || recaptchaToken.startsWith("recaptcha-")) {
-          throw new Error("La vérification humaine a échoué. Veuillez réessayer ou rafraîchir la page.")
-        }
-      } catch (recaptchaError) {
-        console.error("Erreur reCAPTCHA:", recaptchaError)
-        throw new Error("La vérification humaine a échoué. Veuillez réessayer ou rafraîchir la page.")
-      }
-
       // Préparer les données pour la soumission
       const finalPromptContent = watchPromptType === "canevas" ? generatePromptFromCanvas() : values.promptContent
 
       const submissionData = {
         ...values,
         promptContent: finalPromptContent,
-        recaptchaToken,
         status: "pending", // En attente de modération
         submittedAt: new Date().toISOString(),
       }
@@ -261,15 +224,6 @@ export function ProposerPromptForm() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-
-        <Alert className="bg-blue-50 border-blue-200">
-          <ShieldAlert className="h-4 w-4 text-blue-600" />
-          <AlertTitle className="text-blue-800">Protection anti-spam</AlertTitle>
-          <AlertDescription className="text-blue-700">
-            Ce formulaire est protégé par reCAPTCHA pour garantir que seuls les humains puissent soumettre des prompts.
-            {!recaptchaReady && " Chargement de la vérification en cours..."}
-          </AlertDescription>
-        </Alert>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <FormField
@@ -550,16 +504,11 @@ export function ProposerPromptForm() {
         </div>
 
         <div className="flex justify-end">
-          <Button type="submit" disabled={isSubmitting || !recaptchaReady} className="min-w-[150px]">
+          <Button type="submit" disabled={isSubmitting} className="min-w-[150px]">
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Envoi en cours...
-              </>
-            ) : !recaptchaReady ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Chargement...
               </>
             ) : (
               "Soumettre le prompt"

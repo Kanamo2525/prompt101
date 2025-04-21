@@ -70,7 +70,7 @@ export function PromptCard({ title, description, level, techniques, promptText, 
             ))}
           </div>
         </div>
-        <div className="bg-gray-50 p-4 rounded-md border border-gray-200 font-mono text-sm whitespace-pre-wrap">
+        <div className="bg-gray-50 dark:bg-gray-50 p-4 rounded-md border border-gray-200 font-mono text-sm text-gray-900 dark:text-gray-900 whitespace-pre-wrap">
           {promptText}
         </div>
       </CardContent>

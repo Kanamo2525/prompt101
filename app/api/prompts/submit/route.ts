@@ -11,71 +11,10 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-// Améliorer la vérification du token reCAPTCHA
-async function verifyRecaptcha(token: string): Promise<boolean> {
-  // Si le token est null, undefined ou vide
-  if (!token) {
-    console.log("Token is null, undefined or empty")
-    return false
-  }
-
-  // Si le token est un message d'erreur spécial de notre frontend
-  if (token.startsWith("recaptcha-")) {
-    console.log("Frontend reCAPTCHA error:", token)
-    return false
-  }
-
-  try {
-    // En mode développement, accepter les tokens sans vérification
-    if (process.env.NODE_ENV !== "production") {
-      console.log("Development mode: skipping reCAPTCHA verification")
-      return true
-    }
-
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY || "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe" // Clé secrète de test Google
-
-    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `secret=${secretKey}&response=${token}`,
-    })
-
-    const data = await response.json()
-    console.log("reCAPTCHA verification response:", data)
-
-    if (data.success) {
-      // En production, vérifier le score
-      const score = data.score || 0
-      return score > 0.3 // Seuil plus permissif pour éviter les faux positifs
-    }
-
-    return false
-  } catch (error) {
-    console.error("Erreur lors de la vérification reCAPTCHA:", error)
-    // En cas d'erreur, accepter en développement, refuser en production
-    return process.env.NODE_ENV !== "production"
-  }
-}
-
 export async function POST(request: Request) {
   try {
     const data = await request.json()
     console.log("Received form submission")
-
-    // Vérifier le token reCAPTCHA
-    const recaptchaToken = data.recaptchaToken
-    if (!recaptchaToken) {
-      console.log("No reCAPTCHA token provided")
-      return NextResponse.json({ success: false, message: "Vérification humaine requise" }, { status: 400 })
-    }
-
-    const isHuman = await verifyRecaptcha(recaptchaToken)
-    if (!isHuman) {
-      console.log("reCAPTCHA verification failed")
-      return NextResponse.json({ success: false, message: "La vérification humaine a échoué" }, { status: 400 })
-    }
 
     // Vérifier si le contenu est du spam
     const spamCheck = isSpam(data)

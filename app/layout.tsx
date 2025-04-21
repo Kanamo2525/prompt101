@@ -8,6 +8,7 @@ import { Footer } from "@/components/footer"
 import { WebsiteJsonLd } from "@/components/json-ld"
 import GoogleAnalytics from "@/components/google-analytics"
 import AxeptioScript from "@/components/axeptio-script"
+import GoogleTagManager, { GoogleTagManagerNoScript } from "@/components/google-tag-manager"
 import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -63,8 +64,10 @@ export default function RootLayout({
       <head>
         <WebsiteJsonLd />
         <AxeptioScript />
+        <GoogleTagManager />
       </head>
       <body className={inter.className}>
+        <GoogleTagManagerNoScript />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Suspense>
             <Navbar />
