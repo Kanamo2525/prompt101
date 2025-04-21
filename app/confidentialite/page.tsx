@@ -72,7 +72,7 @@ export default function ConfidentialitePage() {
         </p>
         <ul className="list-disc pl-6 mb-4 space-y-2">
           <li>
-            <strong>Adresse électronique</strong> : contact@next‑ai.fr
+            <strong>Adresse électronique</strong> : promp101fr+contact@gmail.com
           </li>
           <li>
             <strong>Adresse postale</strong> : Salbris, France
@@ -265,7 +265,7 @@ export default function ConfidentialitePage() {
           <li>
             <strong>Courriel</strong> :{" "}
             <a href="mailto:dpo@prompt101.fr" className="text-primary hover:underline">
-              dpo@prompt101.fr
+              promp101fr+dpo@gmail.com
             </a>
           </li>
         </ul>
@@ -300,7 +300,7 @@ export default function ConfidentialitePage() {
         <p className="mb-4">
           Pour toute question relative à la présente Politique, vous pouvez écrire à :{" "}
           <a href="mailto:contact@prompt101.fr" className="text-primary hover:underline">
-            contact@prompt101.fr
+            prompp101fr+contact@gmail.com
           </a>
         </p>
       </section>

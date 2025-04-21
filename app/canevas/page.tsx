@@ -1,12 +1,22 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Lightbulb, Info, Plus, X, Check, HelpCircle, ChevronRight, ChevronDown } from "lucide-react"
+import { Lightbulb, Info, Plus, X, Check, HelpCircle, ChevronRight, ChevronDown, Copy } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
 
 // Types
 type PromptType = "automatisation" | "avant-garde" | "assistance" | "augmentation" | ""
@@ -219,7 +229,90 @@ const decisionTree: DecisionTreeNode[] = [
   },
 ]
 
-// Ajouter cette fonction d'aide pour extraire la technique à partir du nœud de résultat:
+// Exemples de prompts pour la modale
+const promptExamples = {
+  "zero-shot": {
+    title: "Analyse SWOT",
+    description: "Demande d'analyse SWOT pour une entreprise",
+    prompt:
+      "Réalise une analyse SWOT complète pour une entreprise de livraison de repas à domicile.\n\nAssure-toi d'inclure au moins 4 points pour chaque section (Forces, Faiblesses, Opportunités, Menaces) et d'expliquer brièvement chaque point.\n\nFormat souhaité: Présente les résultats sous forme de tableau avec des sections clairement identifiées.",
+    ingredients: {
+      task: "Réalise une analyse SWOT complète pour une entreprise de livraison de repas à domicile.",
+      specifications:
+        "Assure-toi d'inclure au moins 4 points pour chaque section (Forces, Faiblesses, Opportunités, Menaces) et d'expliquer brièvement chaque point.",
+      format: "Présente les résultats sous forme de tableau avec des sections clairement identifiées.",
+    },
+  },
+  "one-shot": {
+    title: "Rédaction d'email",
+    description: "Demande de rédaction d'un email professionnel avec exemple",
+    prompt:
+      "Exemple: \nObjet: Invitation à la conférence annuelle sur l'innovation\n\nChère Madame Martin,\n\nJ'espère que ce message vous trouve bien. Au nom de [Nom de l'entreprise], j'ai le plaisir de vous inviter à notre conférence annuelle sur l'innovation qui se tiendra le [date] à [lieu].\n\nCordialement,\n[Votre nom]\n\nMaintenant, rédige un email pour inviter un client potentiel à une démonstration de notre nouveau logiciel de gestion de projet. Inclus la date (15 mai), l'heure (14h) et précise que la démo durera 45 minutes.",
+    ingredients: {
+      task: "Rédige un email pour inviter un client potentiel à une démonstration de notre nouveau logiciel de gestion de projet. Inclus la date (15 mai), l'heure (14h) et précise que la démo durera 45 minutes.",
+      examples:
+        "Exemple: \nObjet: Invitation à la conférence annuelle sur l'innovation\n\nChère Madame Martin,\n\nJ'espère que ce message vous trouve bien. Au nom de [Nom de l'entreprise], j'ai le plaisir de vous inviter à notre conférence annuelle sur l'innovation qui se tiendra le [date] à [lieu].\n\nCordialement,\n[Votre nom]",
+      format: "Format email professionnel avec objet",
+    },
+  },
+  "few-shot": {
+    title: "Classification de feedback",
+    description: "Demande de classification de feedback client avec exemples",
+    prompt:
+      "Voici quelques exemples:\n\nExemple 1: \"Le produit est arrivé cassé et l'emballage était déchiré.\"\nCatégorie: Problème de livraison\nSentiment: Négatif\nUrgence: Élevée\n\nExemple 2: \"J'adore la qualité du tissu et les couleurs sont magnifiques.\"\nCatégorie: Qualité du produit\nSentiment: Positif\nUrgence: Faible\n\nExemple 3: \"J'ai commandé il y a une semaine et je n'ai toujours pas reçu de confirmation d'expédition.\"\nCatégorie: Service client\nSentiment: Négatif\nUrgence: Moyenne\n\nEn suivant ces exemples, classifie le feedback client suivant: \"J'ai reçu le mauvais produit, ce n'est pas du tout ce que j'avais commandé. J'ai besoin d'un remboursement rapidement.\"",
+    ingredients: {
+      task: "Classifie le feedback client suivant: \"J'ai reçu le mauvais produit, ce n'est pas du tout ce que j'avais commandé. J'ai besoin d'un remboursement rapidement.\"",
+      examples:
+        'Exemple 1: "Le produit est arrivé cassé et l\'emballage était déchiré."\nCatégorie: Problème de livraison\nSentiment: Négatif\nUrgence: Élevée\n\nExemple 2: "J\'adore la qualité du tissu et les couleurs sont magnifiques."\nCatégorie: Qualité du produit\nSentiment: Positif\nUrgence: Faible\n\nExemple 3: "J\'ai commandé il y a une semaine et je n\'ai toujours pas reçu de confirmation d\'expédition."\nCatégorie: Service client\nSentiment: Négatif\nUrgence: Moyenne',
+      format: "Catégorie, Sentiment, Urgence",
+    },
+  },
+  "chain-of-thought": {
+    title: "Résolution de problème",
+    description: "Demande de résolution d'un problème complexe étape par étape",
+    prompt:
+      "Une entreprise de e-commerce constate une baisse de 15% du taux de conversion sur son site web au cours du dernier mois. Analyse ce problème et propose des solutions.\n\nRéfléchis étape par étape:\n1. Identifie les causes possibles de la baisse du taux de conversion\n2. Pour chaque cause, évalue sa probabilité et son impact potentiel\n3. Propose des solutions spécifiques pour les causes les plus probables\n4. Suggère une méthodologie pour tester l'efficacité de ces solutions",
+    ingredients: {
+      task: "Une entreprise de e-commerce constate une baisse de 15% du taux de conversion sur son site web au cours du dernier mois. Analyse ce problème et propose des solutions.",
+      steps:
+        "1. Identifie les causes possibles de la baisse du taux de conversion\n2. Pour chaque cause, évalue sa probabilité et son impact potentiel\n3. Propose des solutions spécifiques pour les causes les plus probables\n4. Suggère une méthodologie pour tester l'efficacité de ces solutions",
+    },
+  },
+  rct: {
+    title: "Conseil en marketing",
+    description: "Demande de conseil en marketing avec définition du rôle, contexte et tâche",
+    prompt:
+      "En tant que consultant en marketing digital spécialisé dans les réseaux sociaux,\ntu travailles avec une petite entreprise locale qui souhaite augmenter sa présence en ligne.\nPour cela, tu dois créer une stratégie de contenu pour Instagram qui générera plus d'engagement et attirera de nouveaux clients.",
+    ingredients: {
+      persona: "consultant en marketing digital spécialisé dans les réseaux sociaux",
+      context: "travailles avec une petite entreprise locale qui souhaite augmenter sa présence en ligne",
+      task: "dois créer une stratégie de contenu pour Instagram qui générera plus d'engagement et attirera de nouveaux clients",
+    },
+  },
+  "expert-role": {
+    title: "Conseil financier",
+    description: "Demande de conseil financier en définissant un rôle d'expert",
+    prompt:
+      "Tu es un expert en planification financière avec une grande expérience dans le domaine.\n\nQuelles sont les étapes essentielles pour une personne de 30 ans qui souhaite commencer à investir pour sa retraite avec un budget limité? Inclus des conseils sur les types d'investissements à privilégier, les erreurs courantes à éviter, et comment équilibrer les investissements à court et long terme.",
+    ingredients: {
+      persona: "planification financière",
+      task: "Quelles sont les étapes essentielles pour une personne de 30 ans qui souhaite commencer à investir pour sa retraite avec un budget limité?",
+      specifications:
+        "Inclus des conseils sur les types d'investissements à privilégier, les erreurs courantes à éviter, et comment équilibrer les investissements à court et long terme.",
+    },
+  },
+  "contextual-augmentation": {
+    title: "Recommandation personnalisée",
+    description: "Demande de recommandation avec contexte spécifique",
+    prompt:
+      "En tenant compte des informations suivantes:\n\nJe suis un développeur web avec 3 ans d'expérience, principalement en JavaScript (React) et un peu de backend avec Node.js. Je souhaite élargir mes compétences pour devenir développeur full-stack. J'ai environ 5 heures par semaine à consacrer à l'apprentissage. Je préfère les ressources gratuites ou peu coûteuses.\n\nRecommande-moi un plan d'apprentissage sur 3 mois pour développer mes compétences backend et devenir un développeur full-stack plus complet.",
+    ingredients: {
+      context:
+        "Je suis un développeur web avec 3 ans d'expérience, principalement en JavaScript (React) et un peu de backend avec Node.js. Je souhaite élargir mes compétences pour devenir développeur full-stack. J'ai environ 5 heures par semaine à consacrer à l'apprentissage. Je préfère les ressources gratuites ou peu coûteuses.",
+      task: "Recommande-moi un plan d'apprentissage sur 3 mois pour développer mes compétences backend et devenir un développeur full-stack plus complet.",
+    },
+  },
+}
 
 // Helper function to extract technique from result node
 const extractTechniqueFromResultNode = (nodeId: string): PromptTechnique | undefined => {
@@ -231,6 +324,37 @@ const extractTechniqueFromResultNode = (nodeId: string): PromptTechnique | undef
   return undefined
 }
 
+// Fonction pour mettre en évidence les ingrédients dans un exemple de prompt
+const highlightIngredients = (prompt: string, ingredients: Record<string, string>) => {
+  let highlightedPrompt = prompt
+
+  // Remplacer chaque ingrédient par sa version surlignée
+  Object.entries(ingredients).forEach(([key, value]) => {
+    if (value && prompt.includes(value)) {
+      const className = getIngredientClass(key)
+      highlightedPrompt = highlightedPrompt.replace(value, `<span class="${className}">${value}</span>`)
+    }
+  })
+
+  return highlightedPrompt
+}
+
+// Fonction pour obtenir la classe CSS en fonction du type d'ingrédient
+const getIngredientClass = (ingredientType: string) => {
+  const classes = {
+    task: "bg-blue-100 text-blue-800 px-1 rounded",
+    context: "bg-green-100 text-green-800 px-1 rounded",
+    steps: "bg-amber-100 text-amber-800 px-1 rounded",
+    specifications: "bg-purple-100 text-purple-800 px-1 rounded",
+    examples: "bg-pink-100 text-pink-800 px-1 rounded",
+    persona: "bg-indigo-100 text-indigo-800 px-1 rounded",
+    format: "bg-orange-100 text-orange-800 px-1 rounded",
+    inputs: "bg-cyan-100 text-cyan-800 px-1 rounded",
+  }
+
+  return classes[ingredientType as keyof typeof classes] || ""
+}
+
 export default function CanevasPage() {
   // States
   const [frictionPoint, setFrictionPoint] = useState("")
@@ -240,6 +364,9 @@ export default function CanevasPage() {
   const [isTreeModalOpen, setIsTreeModalOpen] = useState(false)
   const [currentNodeId, setCurrentNodeId] = useState("start")
   const [isCopied, setIsCopied] = useState(false)
+  const [isExampleCopied, setIsExampleCopied] = useState<Record<string, boolean>>({})
+  const [isExamplesDialogOpen, setIsExamplesDialogOpen] = useState(false)
+  const [selectedExampleTab, setSelectedExampleTab] = useState<PromptTechnique>("zero-shot")
 
   const [ingredients, setIngredients] = useState<Ingredient[]>([
     { id: "task", label: "Task", description: "Que voulez-vous exactement ?", content: "", selected: false },
@@ -329,6 +456,41 @@ export default function CanevasPage() {
     setTimeout(() => setIsCopied(false), 2000)
   }
 
+  // Copy example prompt to clipboard
+  const copyExampleToClipboard = (technique: PromptTechnique) => {
+    if (promptExamples[technique]) {
+      navigator.clipboard.writeText(promptExamples[technique].prompt)
+      setIsExampleCopied({ ...isExampleCopied, [technique]: true })
+      setTimeout(() => {
+        setIsExampleCopied({ ...isExampleCopied, [technique]: false })
+      }, 2000)
+    }
+  }
+
+  // Apply example to form
+  const applyExampleToForm = (technique: PromptTechnique) => {
+    if (promptExamples[technique]) {
+      // Set the technique
+      setPromptTechnique(technique)
+
+      // Update ingredients with example values
+      const exampleIngredients = promptExamples[technique].ingredients
+      const updatedIngredients = ingredients.map((ingredient) => {
+        const content = exampleIngredients[ingredient.id as keyof typeof exampleIngredients] || ""
+        return {
+          ...ingredient,
+          content,
+          selected: content ? true : ingredient.selected,
+        }
+      })
+
+      setIngredients(updatedIngredients)
+
+      // Close the dialog
+      setIsExamplesDialogOpen(false)
+    }
+  }
+
   // Get current node in decision tree
   const currentNode = decisionTree.find((node) => node.id === currentNodeId)
 
@@ -375,6 +537,7 @@ export default function CanevasPage() {
     { id: "few-shot", name: "Few Shot", description: "Instruction avec plusieurs exemples" },
     { id: "chain-of-thought", name: "Chain Of Thought", description: "Raisonnement étape par étape" },
     { id: "rct", name: "Rct", description: "Rôle, contexte et tâche" },
+    { id: "multi-prompting", name: "Multi Prompting", description: "Plusieurs  contexte et tâche" },
     { id: "multi-prompting", name: "Multi Prompting", description: "Plusieurs prompts séquentiels" },
     { id: "expert-role", name: "Expert Role", description: "Attribution d'un rôle d'expert" },
     { id: "generated-knowledge", name: "Generated Knowledge", description: "Génération de connaissances" },
@@ -734,7 +897,88 @@ export default function CanevasPage() {
 
           {/* Actions */}
           <div className="flex justify-between">
-            <Button variant="outline">Voir des exemples</Button>
+            <Dialog open={isExamplesDialogOpen} onOpenChange={setIsExamplesDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline">Voir des exemples</Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Exemples de prompts</DialogTitle>
+                  <DialogDescription>
+                    Explorez des exemples de prompts pour différentes techniques et découvrez comment les ingrédients
+                    sont utilisés.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <Tabs
+                  defaultValue="zero-shot"
+                  value={selectedExampleTab}
+                  onValueChange={(value) => setSelectedExampleTab(value as PromptTechnique)}
+                >
+                  <TabsList className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-7 mb-4">
+                    {Object.keys(promptExamples).map((technique) => (
+                      <TabsTrigger key={technique} value={technique} className="text-xs">
+                        {technique
+                          .split("-")
+                          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                          .join(" ")}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+
+                  {Object.entries(promptExamples).map(([technique, example]) => (
+                    <TabsContent key={technique} value={technique} className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <h3 className="text-lg font-medium">{example.title}</h3>
+                          <p className="text-sm text-gray-500">{example.description}</p>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => copyExampleToClipboard(technique as PromptTechnique)}
+                            disabled={isExampleCopied[technique]}
+                          >
+                            {isExampleCopied[technique] ? "Copié ✓" : "Copier"}
+                            {!isExampleCopied[technique] && <Copy size={14} className="ml-1" />}
+                          </Button>
+                          <Button
+                            variant="default"
+                            size="sm"
+                            onClick={() => applyExampleToForm(technique as PromptTechnique)}
+                          >
+                            Utiliser cet exemple
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-50 p-4 rounded-md border whitespace-pre-line">
+                        <div
+                          className="prompt-example"
+                          dangerouslySetInnerHTML={{
+                            __html: highlightIngredients(example.prompt, example.ingredients),
+                          }}
+                        />
+                      </div>
+
+                      <div className="mt-4">
+                        <h4 className="text-sm font-medium mb-2">Ingrédients utilisés:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {Object.entries(example.ingredients).map(([key, value]) =>
+                            value ? (
+                              <Badge key={key} variant="outline" className={getIngredientClass(key)}>
+                                {key.charAt(0).toUpperCase() + key.slice(1)}
+                              </Badge>
+                            ) : null,
+                          )}
+                        </div>
+                      </div>
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              </DialogContent>
+            </Dialog>
             <Button className="bg-purple-600 hover:bg-purple-700" onClick={copyToClipboard}>
               {isCopied ? "Copié ✓" : "Copier"}
             </Button>
@@ -845,7 +1089,7 @@ export default function CanevasPage() {
                           ?.question.replace("Technique recommandée: ", "")
                           .toLowerCase()
                           .replace(/ /g, "-")
-                          .replace(/$$|$$/g, "")
+                          .replace(/$|$/g, "")
                           .replace("rôle-contexte-tâche", "rct") as PromptTechnique
 
                         if (technique) {
@@ -873,6 +1117,12 @@ export default function CanevasPage() {
           </div>
         </div>
       )}
+
+      <style jsx global>{`
+        .prompt-example span {
+          display: inline;
+        }
+      `}</style>
     </div>
   )
 }
