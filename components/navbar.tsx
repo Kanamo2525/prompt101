@@ -24,7 +24,7 @@ export function Navbar() {
     {
       href: "/catalogue",
       label: "Catalogue",
-      active: pathname === "/catalogue",
+      active: pathname === "/catalogue" || pathname.startsWith("/catalogue/"),
     },
     {
       href: "/canevas",
