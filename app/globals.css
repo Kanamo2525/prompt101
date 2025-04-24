@@ -101,3 +101,36 @@
 .animate-pulseOnce {
   animation: pulseOnce 1.5s ease-out;
 }
+
+/* Styles pour Google Translate */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Amélioration du style du sélecteur de langue */
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.goog-te-gadget-icon {
+  margin-right: 4px !important;
+}
+
+.goog-te-menu-value {
+  color: inherit !important;
+}
+
+/* Correction pour le mode sombre */
+.dark .goog-te-menu-value span {
+  color: white !important;
+}

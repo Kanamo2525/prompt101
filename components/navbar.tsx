@@ -6,6 +6,7 @@ import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
+import GoogleTranslate from "./google-translate"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -60,6 +61,9 @@ export function Navbar() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
+          <div className="hidden md:block">
+            <GoogleTranslate />
+          </div>
           <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
