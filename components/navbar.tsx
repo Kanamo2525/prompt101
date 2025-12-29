@@ -2,11 +2,11 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import { Menu, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
-import GoogleTranslate from "./google-translate"
+import { LanguageSelector } from "./language-selector"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -16,26 +16,31 @@ export function Navbar() {
       href: "/",
       label: "Accueil",
       active: pathname === "/",
+      external: false,
     },
     {
       href: "/methodes",
       label: "Méthodes",
       active: pathname === "/methodes" || pathname.startsWith("/methodes/"),
+      external: false,
     },
     {
       href: "/catalogue",
       label: "Catalogue",
       active: pathname === "/catalogue" || pathname.startsWith("/catalogue/"),
+      external: false,
     },
     {
-      href: "/canevas",
+      href: "https://canvas.prompt101.fr/",
       label: "Canevas",
-      active: pathname === "/canevas",
+      active: false,
+      external: true,
     },
     {
       href: "/proposer",
       label: "Proposer un prompt",
       active: pathname === "/proposer",
+      external: false,
     },
   ]
 
@@ -47,44 +52,68 @@ export function Navbar() {
             <span className="font-bold text-xl">prompt101.fr</span>
           </Link>
           <nav className="hidden md:flex gap-6">
-            {routes.map((route) => (
-              <Link
-                key={route.href}
-                href={route.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  route.active ? "text-foreground" : "text-muted-foreground"
-                }`}
-              >
-                {route.label}
-              </Link>
-            ))}
+            {routes.map((route) =>
+              route.external ? (
+                <a
+                  key={route.href}
+                  href={route.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground flex items-center gap-1"
+                >
+                  {route.label}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              ) : (
+                <Link
+                  key={route.href}
+                  href={route.href}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    route.active ? "text-foreground" : "text-muted-foreground"
+                  }`}
+                >
+                  {route.label}
+                </Link>
+              ),
+            )}
           </nav>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block">
-            <GoogleTranslate />
-          </div>
+        <div className="flex items-center gap-1">
+          <LanguageSelector />
           <ThemeToggle />
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
+              <Button variant="outline" size="icon" className="md:hidden bg-transparent">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
               <nav className="flex flex-col gap-4 mt-8">
-                {routes.map((route) => (
-                  <Link
-                    key={route.href}
-                    href={route.href}
-                    className={`text-sm font-medium transition-colors hover:text-primary ${
-                      route.active ? "text-foreground" : "text-muted-foreground"
-                    }`}
-                  >
-                    {route.label}
-                  </Link>
-                ))}
+                {routes.map((route) =>
+                  route.external ? (
+                    <a
+                      key={route.href}
+                      href={route.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium transition-colors hover:text-primary text-muted-foreground flex items-center gap-1"
+                    >
+                      {route.label}
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <Link
+                      key={route.href}
+                      href={route.href}
+                      className={`text-sm font-medium transition-colors hover:text-primary ${
+                        route.active ? "text-foreground" : "text-muted-foreground"
+                      }`}
+                    >
+                      {route.label}
+                    </Link>
+                  ),
+                )}
               </nav>
             </SheetContent>
           </Sheet>

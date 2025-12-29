@@ -18,7 +18,7 @@ export default function MentionsLegalesPage() {
           <br />
           <strong>Adresse :</strong> Loir et Cher (41), France, Europe
           <br />
-          <strong>Email :</strong> promp101fr+contact@gmail.com 
+          <strong>Email :</strong> contact@prompt101.fr 
           <br />
           <strong>SIRET :</strong>
         </p>
@@ -157,7 +157,7 @@ export default function MentionsLegalesPage() {
         <h2 className="text-2xl font-semibold mb-4">8. Contact</h2>
         <p className="mb-4">
           Pour toute question relative aux présentes mentions légales, vous pouvez nous contacter à l&apos;adresse
-          suivante : promp101fr+contact@gmail.com
+          suivante : contact@prompt101.fr
         </p>
       </section>
 

@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://prompt101.fr",
   },
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

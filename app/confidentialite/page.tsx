@@ -72,14 +72,14 @@ export default function ConfidentialitePage() {
         </p>
         <ul className="list-disc pl-6 mb-4 space-y-2">
           <li>
-            <strong>Adresse électronique</strong> : promp101fr+contact@gmail.com
+            <strong>Adresse électronique</strong> : contact@prompt101.fr
           </li>
           <li>
             <strong>Adresse postale</strong> : Salbris, France
           </li>
         </ul>
         <p className="mb-4">
-          Le <strong>Délégué à la Protection des Données (DPO)</strong> est joignable à : contact@prompt101.fr
+          Le <strong>Délégué à la Protection des Données (DPO)</strong> est joignable à : dataprotection@prompt101.fr
         </p>
       </section>
 
@@ -264,8 +264,8 @@ export default function ConfidentialitePage() {
         <ul className="list-disc pl-6 mb-4 space-y-2">
           <li>
             <strong>Courriel</strong> :{" "}
-            <a href="mailto:dpo@prompt101.fr" className="text-primary hover:underline">
-              promp101fr+dpo@gmail.com
+            <a href="mailto:dataprotection@prompt101.fr" className="text-primary hover:underline">
+              dataprotection@prompt101.fr
             </a>
           </li>
         </ul>
@@ -299,8 +299,8 @@ export default function ConfidentialitePage() {
         <h2 className="text-2xl font-semibold mb-4">Contact</h2>
         <p className="mb-4">
           Pour toute question relative à la présente Politique, vous pouvez écrire à :{" "}
-          <a href="mailto:contact@prompt101.fr" className="text-primary hover:underline">
-            promp101fr+contact@gmail.com
+          <a href="mailto:dataprotection@prompt101.fr" className="text-primary hover:underline">
+            dataprotection@prompt101.fr
           </a>
         </p>
       </section>

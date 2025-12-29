@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Github, Linkedin } from "lucide-react"
+import { Github, Linkedin, ExternalLink } from "lucide-react"
 import Image from "next/image"
 
 export function Footer() {
@@ -23,7 +23,7 @@ export function Footer() {
             </span>
           </p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <Link href="/mentions-legales" className="text-sm text-muted-foreground hover:text-foreground">
             Mentions légales
           </Link>
@@ -32,6 +32,22 @@ export function Footer() {
           </Link>
           <Link href="/cookies" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             Cookies
+          </Link>
+          <Link
+            href="https://rh.prompt101.fr/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+          >
+            RH.Prompt101.fr <ExternalLink className="h-3 w-3" />
+          </Link>
+          <Link
+            href="https://www.aicards.fr/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1"
+          >
+            AICards.fr <ExternalLink className="h-3 w-3" />
           </Link>
           <Link
             href="https://github.com/Kanamo2525"
