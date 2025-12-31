@@ -37,11 +37,12 @@ export function Navbar() {
       external: true,
     },
     {
-      href: "/proposer",
-      label: "Proposer un prompt",
-      active: pathname === "/proposer",
+      href: "/pour-aller-plus-loin",
+      label: "Pour aller plus loin",
+      active: pathname === "/pour-aller-plus-loin",
       external: false,
     },
+    // Note: La page /proposer existe toujours mais n'est plus dans le menu
   ]
 
   return (
