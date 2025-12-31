@@ -12,7 +12,7 @@ interface PDFDownloadButtonProps extends ButtonProps {
 export function PdfDownloadButton({
   title = "Télécharger le guide PDF",
   filename = "art-du-prompting.pdf",
-  pdfUrl = "https://assets.api.gamma.app/export/pdf/398jqrfdcsws5cp/9cab98d6e368440b4082d3bf9fef6c07/Lart-du-prompting.pdf",
+  pdfUrl = "https://drive.google.com/uc?export=download&id=1AUEXGxGup2Gr32mbvgXXSpR1DdIRhMLq",
   ...props
 }: PDFDownloadButtonProps) {
   const handleOpenPdf = () => {
